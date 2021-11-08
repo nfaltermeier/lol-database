@@ -12,7 +12,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RegionController : ControllerBase
+    public class RegionsController : ControllerBase
     {
         [HttpGet]
         public IEnumerable<Region> Get()

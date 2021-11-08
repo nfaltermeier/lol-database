@@ -1,9 +1,11 @@
-DELETE FROM LoLDB.PlayerSecondaryRune;
-DBCC CHECKIDENT ('LoLDB.PlayerSecondaryRune', RESEED, 0);
+DELETE FROM LoLDB.SecondaryRune;
+DBCC CHECKIDENT ('LoLDB.SecondaryRune', RESEED, 0);
 DELETE FROM LoLDB.KeystoneRune;
 DBCC CHECKIDENT ('LoLDB.KeystoneRune', RESEED, 0);
 DELETE FROM LoLDB.RunePath;
 DBCC CHECKIDENT ('LoLDB.RunePath', RESEED, 0);
+DELETE FROM LoLDB.ShardRune;
+DBCC CHECKIDENT ('LoLDB.ShardRune', RESEED, 0);
 DELETE FROM LoLDB.Region;
 DBCC CHECKIDENT ('LoLDB.Region', RESEED, 0);
 
@@ -36,3 +38,10 @@ FROM (
         ('Cheap Shot', 'Domination', 1, 'link-add-later')
 ) D([Name], RunePathName, Slot, LogoLink)
 JOIN LoLDB.RunePath RP ON D.RunePathName = RP.Name;
+
+INSERT INTO LoLDB.ShardRune([Name], Slot, LogoLink)
+VALUES
+    ('Attack Damage', 1, 'link-add-later'),
+    ('Attack Speed', 1, 'link-add-later'),
+    ('Attack Damage', 2, 'link-add-later'),
+    ('Health', 3, 'link-add-later');
