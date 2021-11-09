@@ -5,6 +5,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: #282c34;
+  color: white;
+  padding: 1em;
+}
+
+a {
+  color: wheat;
+}
+
+nav > * {
+  margin-right: 1em;
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 code {

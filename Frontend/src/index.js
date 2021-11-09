@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { HashRouter, Route, Routes } from "react-router-dom";
+import './index.scss';
+import Add from './routes/Add';
 import App from './App';
+import NotFound from './routes/404';
+import Team from './routes/add/Team';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <HashRouter>
+      <Routes>
+        <Route exact path="/" element={<App />} />
+        <Route path="/add" element={<Add />} >
+          <Route path="team" element={<Team />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

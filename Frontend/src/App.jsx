@@ -1,29 +1,14 @@
-import NoRedirectForm from './NoRedirectForm';
+import { NavLink } from 'react-router-dom';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <nav>
+        <NavLink to="add">Add</NavLink>
+      </nav>
       <header className="App-header">
-        <NoRedirectForm id="team" url="http://localhost:28172/teams" method="post">
-          <div>
-            <label htmlFor="name">Name</label>
-            <input name="name" type="text" />
-          </div>
-          <div>
-            {/* Should be a select */}
-            <label htmlFor="region">Region</label>
-            <input name="regionID" type="number" />
-          </div>
-          <div>
-            <label htmlFor="logolink">Logo Link</label>
-            <input name="logolink" type="text" />
-          </div>
-          <div>
-            <label htmlFor="nameabbreviation">Name Abbreviation</label>
-            <input name="nameabbreviation" type="text" />
-          </div>
-        </NoRedirectForm>
+        <h1>LOL Database</h1>
       </header>
     </div>
   );

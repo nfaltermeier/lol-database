@@ -34,13 +34,8 @@ namespace Backend.Controllers
         public void Post([FromForm] Team team)
         {
             var (command, reader) = DatabaseConnector.RunCommand($"INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES ('{team.Name}', '{team.RegionID}', '{team.LogoLink}', '{team.NameAbbreviation}')");
-            using (command)
-            {
-                using (reader)
-                {
-                    
-                }
-            }
+            command.Dispose();
+            reader.Close();
         }
     }
 }
