@@ -4,15 +4,22 @@ import styles from './DataLoader.module.scss';
 
 export default function DataLoader(props) {
   const [retries, setRetries] = useState(0);
-  const { action, setState } = props;
+  const { actions, setState } = props;
   useEffect(() => {
-    action().then((data) => setState({ isLoading: false, isErrored: false, data }))
-      .catch((e) => {
-        console.error(e);
-        setState({ isLoading: false, isErrored: true, data: null });
+    const promises = actions.map(a => a.fn().then(data => ({ key: a.key, data })));
+    Promise.all(promises).then((data) => {
+      const out = {};
+      data.forEach(d => {
+        out[d.key] = d.data;
       });
-      // Will cause infinite loading if action is not memoized
-  }, [retries, setState, action]);
+      setState({ isLoading: false, isErrored: false, data: out });
+    })
+    .catch((e) => {
+      console.error(e);
+      setState({ isLoading: false, isErrored: true, data: null });
+    });
+      // Will cause infinite loading if actions is not memoized
+  }, [retries, setState, actions]);
 
   if (props.state.isErrored) {
     return (

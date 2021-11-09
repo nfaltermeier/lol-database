@@ -12,15 +12,15 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RegionsController : ControllerBase
+    public class PositionsController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Region> Get()
+        public IEnumerable<Position> Get()
         {
-            using var reader = DatabaseConnector.RunCommand("SELECT RegionId, Name FROM LoLDB.Region");
-            List<Region> results = new();
+            using var reader = DatabaseConnector.RunCommand("SELECT PositionID, Name, LogoLink FROM LoLDB.Position");
+            List<Position> results = new();
             while (reader.Read())
-                results.Add(Region.CreateRegion(reader));
+                results.Add(Position.CreatePosition(reader));
             return results;
         }
     }

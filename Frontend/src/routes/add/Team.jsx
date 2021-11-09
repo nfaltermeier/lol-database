@@ -1,26 +1,26 @@
 import axios from 'axios';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import DataLoader from '../../components/DataLoader';
 import NoRedirectForm from "../../components/NoRedirectForm"
 
 export default function Team() {
   const [state, setState] = useState({ isLoading: true, isErrored: false, data: null });
-  const getData = useCallback(() => axios.get('http://localhost:28172/regions').then(data => data.data), []);
+  const getData = useMemo(() => [{ key: 'regions', fn: () => (axios.get('http://localhost:28172/regions').then(data => data.data)) }], []);
 
   return (
     <main>
       <h2>Team</h2>
-      <DataLoader state={state} setState={setState} action={getData}>
+      <DataLoader state={state} setState={setState} actions={getData}>
         <NoRedirectForm id="team" url="http://localhost:28172/teams" method="post">
           <div>
             <label htmlFor="name">Name</label>
             <input name="name" type="text" />
           </div>
           <div>
-            <label htmlFor="region">Region</label>
+            <label htmlFor="regionID">Region</label>
             <select name="regionID">
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.map(element => (
+              {state.data != null && state.data.regions.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>

@@ -45,3 +45,12 @@ VALUES
     ('Attack Speed', 1, 'link-add-later'),
     ('Attack Damage', 2, 'link-add-later'),
     ('Health', 3, 'link-add-later');
+
+INSERT INTO LoLDB.Position([Name], LogoLink)
+VALUES
+    ('Top', 'no'),
+    ('Mid', 'why'),
+    ('Support', 'are'),
+    ('ADC', 'there'),
+    ('Jungle', 'links'),
+    ('Coach', 'here');

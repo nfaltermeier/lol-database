@@ -22,44 +22,28 @@ namespace Backend.Controllers
             List<SecondaryRune> secondaries = new();
             List<ShardRune> shards = new();
 
-            var (command, reader) = DatabaseConnector.RunCommand("SELECT RunePathID, Name, LogoLink FROM LoLDB.RunePath");
-            using (command)
+            using (var reader = DatabaseConnector.RunCommand("SELECT RunePathID, Name, LogoLink FROM LoLDB.RunePath"))
             {
-                using (reader)
-                {
-                    while (reader.Read())
-                        paths.Add(RunePath.CreateRunePath(reader));
-                }
+                while (reader.Read())
+                    paths.Add(RunePath.CreateRunePath(reader));
             }
 
-            (command, reader) = DatabaseConnector.RunCommand("SELECT KeystoneRuneID, Name, LogoLink, RunePathID FROM LoLDB.KeystoneRune");
-            using (command)
+            using (var reader = DatabaseConnector.RunCommand("SELECT KeystoneRuneID, Name, LogoLink, RunePathID FROM LoLDB.KeystoneRune"))
             {
-                using (reader)
-                {
-                    while (reader.Read())
-                        keystones.Add(KeystoneRune.CreateKeystoneRune(reader));
-                }
+                while (reader.Read())
+                    keystones.Add(KeystoneRune.CreateKeystoneRune(reader));
             }
 
-            (command, reader) = DatabaseConnector.RunCommand("SELECT SecondaryRuneID, Name, LogoLink, Slot, RunePathID FROM LoLDB.SecondaryRune");
-            using (command)
+            using (var reader = DatabaseConnector.RunCommand("SELECT SecondaryRuneID, Name, LogoLink, Slot, RunePathID FROM LoLDB.SecondaryRune"))
             {
-                using (reader)
-                {
-                    while (reader.Read())
-                        secondaries.Add(SecondaryRune.CreateSecondaryRune(reader));
-                }
+                while (reader.Read())
+                    secondaries.Add(SecondaryRune.CreateSecondaryRune(reader));
             }
 
-            (command, reader) = DatabaseConnector.RunCommand("SELECT ShardRuneID, Name, LogoLink, Slot FROM LoLDB.ShardRune");
-            using (command)
+            using (var reader = DatabaseConnector.RunCommand("SELECT ShardRuneID, Name, LogoLink, Slot FROM LoLDB.ShardRune"))
             {
-                using (reader)
-                {
-                    while (reader.Read())
-                        shards.Add(ShardRune.CreateShardRune(reader));
-                }
+                while (reader.Read())
+                    shards.Add(ShardRune.CreateShardRune(reader));
             }
 
             return new StaticRuneData(paths, keystones, secondaries, shards);

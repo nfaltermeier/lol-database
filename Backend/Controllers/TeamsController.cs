@@ -17,25 +17,17 @@ namespace Backend.Controllers
         [HttpGet]
         public IEnumerable<Team> Get()
         {
-            var (command, reader) = DatabaseConnector.RunCommand("SELECT TeamID, Name, RegionID, LogoLink, NameAbbreviation FROM LoLDB.Team");
-            using (command)
-            {
-                using (reader)
-                {
-                    List<Team> results = new();
-                    while (reader.Read())
-                        results.Add(Team.CreateTeam(reader));
-                    return results;
-                }
-            }
+            using var reader = DatabaseConnector.RunCommand("SELECT TeamID, Name, RegionID, LogoLink, NameAbbreviation FROM LoLDB.Team");
+            List<Team> results = new();
+            while (reader.Read())
+                results.Add(Team.CreateTeam(reader));
+            return results;
         }
 
         [HttpPost]
         public void Post([FromForm] Team team)
         {
-            var (command, reader) = DatabaseConnector.RunCommand($"INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES ('{team.Name}', '{team.RegionID}', '{team.LogoLink}', '{team.NameAbbreviation}')");
-            command.Dispose();
-            reader.Close();
+            DatabaseConnector.RunCommand($"INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES ('{team.Name}', '{team.RegionID}', '{team.LogoLink}', '{team.NameAbbreviation}')").Close();
         }
     }
 }
