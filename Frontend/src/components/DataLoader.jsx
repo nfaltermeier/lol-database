@@ -37,7 +37,7 @@ export default function DataLoader(props) {
       <div className={cx('loading')}>
         <div>
           Loading
-          <div className={cx('spin-eternally')}>h</div>
+          <div className={cx('spin-eternally')}>•</div>
         </div>
       </div>
     );

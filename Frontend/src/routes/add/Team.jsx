@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMemo, useState } from 'react';
 import DataLoader from '../../components/DataLoader';
-import NoRedirectForm from "../../components/NoRedirectForm"
+import NoRedirectForm from "../../components/NoRedirectForm";
 
 export default function Team() {
   const [state, setState] = useState({ isLoading: true, isErrored: false, data: null });
@@ -36,5 +36,5 @@ export default function Team() {
         </NoRedirectForm>
       </DataLoader>
     </main>
-  )
+  );
 };

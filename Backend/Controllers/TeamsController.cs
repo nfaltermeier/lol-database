@@ -27,7 +27,14 @@ namespace Backend.Controllers
         [HttpPost]
         public void Post([FromForm] Team team)
         {
-            DatabaseConnector.RunCommand($"INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES ('{team.Name}', '{team.RegionID}', '{team.LogoLink}', '{team.NameAbbreviation}')").Close();
+            DatabaseConnector.RunCommand("INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES (@Name, @RegionID, @LogoLink, @NameAbbreviation)",
+                new SqlParameter[] {
+                    new SqlParameter("@Name", team.Name),
+                    new SqlParameter("@PositionID", team.RegionID),
+                    new SqlParameter("@TeamID", team.LogoLink),
+                    new SqlParameter("@NameAbbreviation", team.NameAbbreviation)
+                }
+            ).Close();
         }
     }
 }

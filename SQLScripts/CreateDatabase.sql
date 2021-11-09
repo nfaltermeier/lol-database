@@ -27,9 +27,14 @@ CREATE TABLE LoLDB.Team (
 
 CREATE TABLE LoLDB.Player (
     PlayerID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-    [Name] NVARCHAR(64) NOT NULL UNIQUE,
+    [Name] NVARCHAR(64) NOT NULL,
     PositionID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Position(PositionID),
     TeamID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Team(TeamID),
+
+    UNIQUE (
+        PositionID,
+        TeamID
+    )
 );
 
 CREATE TABLE LoLDB.Game (

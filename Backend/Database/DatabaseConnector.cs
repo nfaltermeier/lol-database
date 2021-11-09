@@ -10,11 +10,13 @@ namespace Backend.Database
 {
     public class DatabaseConnector
     {
-        public static SqlDataReader RunCommand(string sql)
+        public static SqlDataReader RunCommand(string sql, SqlParameter[] parameters = null)
         {
             SqlConnection connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDb;Integrated Security=true;");
             using SqlCommand command = new SqlCommand(sql, connection);
             connection.Open();
+            if (parameters != null)
+                command.Parameters.AddRange(parameters);
             return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
     }

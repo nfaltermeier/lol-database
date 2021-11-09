@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Outlet } from "react-router-dom";
 
 export default function Add() {
   return (
@@ -11,5 +11,5 @@ export default function Add() {
       <h1>Add data</h1>
       <Outlet />
     </div>
-  )
+  );
 };

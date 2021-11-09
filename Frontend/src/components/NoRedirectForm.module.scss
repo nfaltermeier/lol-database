@@ -2,4 +2,14 @@
   .no-redirect-form label {
     padding-right: 1em;
   }
+
+  .errored {
+    color: red;
+    margin-left: 0.5em;
+  }
+
+  .succeded {
+    color: green;
+    margin-left: 0.5em;
+  }
 }
