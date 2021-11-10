@@ -1,15 +1,35 @@
 import axios from 'axios';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import DataLoader from '../../components/DataLoader';
 import NoRedirectForm from "../../components/NoRedirectForm";
 
 export default function PlayerGameStats() {
   const [state, setState] = useState({ isLoading: true, isErrored: false, data: null });
-  const getData = useMemo(() => [
-    { key: 'games', fn: () => (axios.get('http://localhost:28172/games/named').then(data => data.data)) },
-    { key: 'champions', fn: () => (axios.get('http://localhost:28172/champions').then(data => data.data)) },
-    { key: 'players', fn: () => (axios.get('http://localhost:28172/players').then(data => data.data)) }
-  ], []);
+  const [gameID, setGameID] = useState('');
+  const getData = useMemo(() => {
+    const result = [
+      { key: 'games', fn: () => (axios.get('http://localhost:28172/games/named').then(data => data.data)) },
+      { key: 'champions', fn: () => (axios.get('http://localhost:28172/champions').then(data => data.data)) }
+    ];
+
+    if (gameID !== '') {
+      result.push({ key: 'players', fn: () => (axios.get(`http://localhost:28172/players/game/${gameID}`).then(data => data.data)) });
+    }
+
+    return result;
+  }, [gameID]);
+  const gameOnChange = useCallback((e) => {
+    setGameID(e.target.value);
+  }, [setGameID]);
+
+  let playerOptions;
+  if (state.data && state.data.players) {
+    playerOptions = [ <option key="please-choose" value="">Please choose an option</option> ].concat(state.data.players.map(element => (
+      <option key={element.id} value={element.id}>{element.name}</option>
+    )));
+  } else {
+    playerOptions = <option value="">Please choose a game for options</option>;
+  }
 
   return (
     <main>
@@ -17,28 +37,25 @@ export default function PlayerGameStats() {
       <DataLoader state={state} setState={setState} actions={getData}>
         <NoRedirectForm id="playerGameStats" url="http://localhost:28172/playerGameStats" method="post">
           <div>
-            <label htmlFor="playerID">Player</label>
-            <select name="playerID" required>
+            <label htmlFor="gameID">Game</label>
+            <select name="gameID" required onChange={gameOnChange} value={gameID}>
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.players.map(element => (
+              {state.data && state.data.games.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>
           </div>
           <div>
-            <label htmlFor="gameID">Game</label>
-            <select name="gameID" required>
-              <option value="">Please choose an option</option>
-              {state.data != null && state.data.games.map(element => (
-                <option key={element.id} value={element.id}>{element.name}</option>
-              ))}
+            <label htmlFor="playerID">Player</label>
+            <select name="playerID" required>
+              {playerOptions}
             </select>
           </div>
           <div>
             <label htmlFor="championID">Champion</label>
             <select name="championID" required>
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.champions.map(element => (
+              {state.data && state.data.champions.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>

@@ -17,7 +17,7 @@ export default function Game() {
             <label htmlFor="winningTeamID">Winning team</label>
             <select name="winningTeamID" required>
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.teams.map(element => (
+              {state.data && state.data.teams.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>
@@ -26,7 +26,7 @@ export default function Game() {
             <label htmlFor="losingTeamID">Losing team</label>
             <select name="losingTeamID">
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.teams.map(element => (
+              {state.data && state.data.teams.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>

@@ -26,9 +26,11 @@ namespace Backend.Controllers
 
         [Route("game/{gameID}")]
         [HttpGet]
-        public IEnumerable<MinimalPlayer> GetPlayersFromGame()
+        public IEnumerable<MinimalPlayer> GetPlayersFromGame(int gameID)
         {
-            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetPlayersFromGame");
+            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetPlayersFromGame",
+                new SqlParameter[] { new SqlParameter("@GameID", gameID) }
+            );
             List<MinimalPlayer> results = new();
             while (reader.Read())
                 results.Add(MinimalPlayer.CreateMinimalPlayer(reader));

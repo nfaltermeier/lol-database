@@ -6,6 +6,7 @@ export default function DataLoader(props) {
   const [retries, setRetries] = useState(0);
   const { actions, setState } = props;
   useEffect(() => {
+    setState({ isLoading: true, isErrored: false, data: null });
     const promises = actions.map(a => a.fn().then(data => ({ key: a.key, data })));
     Promise.all(promises).then((data) => {
       const out = {};

@@ -23,7 +23,7 @@ export default function Player() {
             <label htmlFor="teamID">Team</label>
             <select name="teamID" required>
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.teams.map(element => (
+              {state.data && state.data.teams.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>
@@ -32,7 +32,7 @@ export default function Player() {
             <label htmlFor="positionID">Position</label>
             <select name="positionID" required>
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.positions.map(element => (
+              {state.data && state.data.positions.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>

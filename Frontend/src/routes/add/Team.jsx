@@ -20,7 +20,7 @@ export default function Team() {
             <label htmlFor="regionID">Region</label>
             <select name="regionID" required>
               <option value="">Please choose an option</option>
-              {state.data != null && state.data.regions.map(element => (
+              {state.data && state.data.regions.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
               ))}
             </select>
