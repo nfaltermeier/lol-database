@@ -14,11 +14,11 @@ export default function Team() {
         <NoRedirectForm id="team" url="http://localhost:28172/teams" method="post">
           <div>
             <label htmlFor="name">Name</label>
-            <input name="name" type="text" />
+            <input name="name" type="text" required />
           </div>
           <div>
             <label htmlFor="regionID">Region</label>
-            <select name="regionID">
+            <select name="regionID" required>
               <option value="">Please choose an option</option>
               {state.data != null && state.data.regions.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
@@ -27,11 +27,11 @@ export default function Team() {
           </div>
           <div>
             <label htmlFor="logolink">Logo Link</label>
-            <input name="logolink" type="text" />
+            <input name="logolink" type="text" required />
           </div>
           <div>
             <label htmlFor="nameabbreviation">Name Abbreviation</label>
-            <input name="nameabbreviation" type="text" />
+            <input name="nameabbreviation" type="text" required />
           </div>
         </NoRedirectForm>
       </DataLoader>

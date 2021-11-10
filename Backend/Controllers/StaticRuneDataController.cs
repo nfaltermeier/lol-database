@@ -22,25 +22,25 @@ namespace Backend.Controllers
             List<SecondaryRune> secondaries = new();
             List<ShardRune> shards = new();
 
-            using (var reader = DatabaseConnector.RunCommand("SELECT RunePathID, Name, LogoLink FROM LoLDB.RunePath"))
+            using (var reader = DatabaseConnector.RunQuery("SELECT RunePathID, Name, LogoLink FROM LoLDB.RunePath"))
             {
                 while (reader.Read())
                     paths.Add(RunePath.CreateRunePath(reader));
             }
 
-            using (var reader = DatabaseConnector.RunCommand("SELECT KeystoneRuneID, Name, LogoLink, RunePathID FROM LoLDB.KeystoneRune"))
+            using (var reader = DatabaseConnector.RunQuery("SELECT KeystoneRuneID, Name, LogoLink, RunePathID FROM LoLDB.KeystoneRune"))
             {
                 while (reader.Read())
                     keystones.Add(KeystoneRune.CreateKeystoneRune(reader));
             }
 
-            using (var reader = DatabaseConnector.RunCommand("SELECT SecondaryRuneID, Name, LogoLink, Slot, RunePathID FROM LoLDB.SecondaryRune"))
+            using (var reader = DatabaseConnector.RunQuery("SELECT SecondaryRuneID, Name, LogoLink, Slot, RunePathID FROM LoLDB.SecondaryRune"))
             {
                 while (reader.Read())
                     secondaries.Add(SecondaryRune.CreateSecondaryRune(reader));
             }
 
-            using (var reader = DatabaseConnector.RunCommand("SELECT ShardRuneID, Name, LogoLink, Slot FROM LoLDB.ShardRune"))
+            using (var reader = DatabaseConnector.RunQuery("SELECT ShardRuneID, Name, LogoLink, Slot FROM LoLDB.ShardRune"))
             {
                 while (reader.Read())
                     shards.Add(ShardRune.CreateShardRune(reader));

@@ -43,15 +43,24 @@ CREATE TABLE LoLDB.Game (
     Duration TIME NOT NULL
 );
 
-CREATE TABLE LoLDB.PlayerGameStat (
+CREATE TABLE LoLDB.TeamGame (
+    TeamID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Team(TeamID),
+    GameID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Game(GameID),
+    Won BIT NOT NULL,
+
+    PRIMARY KEY (TeamID, GameID),
+    UNIQUE (GameID, Won)
+);
+
+CREATE TABLE LoLDB.PlayerGameStats (
     PlayerGameStatID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
     ChampionID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Champion(ChampionID),
     GameID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Game(GameID),
     PlayerID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Player(PlayerID),
     CreepScore INT NOT NULL,
     VisionScore INT NOT NULL,
-    [10MinuteGold] INT,
-    [15MinuteGold] INT,
+    TenMinuteGold INT,
+    FifteenMinuteGold INT,
     EndGold INT NOT NULL,
 
     UNIQUE (

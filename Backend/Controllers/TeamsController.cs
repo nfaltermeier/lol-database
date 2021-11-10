@@ -17,7 +17,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IEnumerable<Team> Get()
         {
-            using var reader = DatabaseConnector.RunCommand("SELECT TeamID, Name, RegionID, LogoLink, NameAbbreviation FROM LoLDB.Team");
+            using var reader = DatabaseConnector.RunQuery("SELECT TeamID, Name, RegionID, LogoLink, NameAbbreviation FROM LoLDB.Team");
             List<Team> results = new();
             while (reader.Read())
                 results.Add(Team.CreateTeam(reader));
@@ -27,7 +27,7 @@ namespace Backend.Controllers
         [HttpPost]
         public void Post([FromForm] Team team)
         {
-            DatabaseConnector.RunCommand("INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES (@Name, @RegionID, @LogoLink, @NameAbbreviation)",
+            DatabaseConnector.RunQuery("INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES (@Name, @RegionID, @LogoLink, @NameAbbreviation)",
                 new SqlParameter[] {
                     new SqlParameter("@Name", team.Name),
                     new SqlParameter("@PositionID", team.RegionID),

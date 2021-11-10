@@ -17,7 +17,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IEnumerable<Region> Get()
         {
-            using var reader = DatabaseConnector.RunCommand("SELECT RegionId, Name FROM LoLDB.Region");
+            using var reader = DatabaseConnector.RunQuery("SELECT RegionId, Name FROM LoLDB.Region");
             List<Region> results = new();
             while (reader.Read())
                 results.Add(Region.CreateRegion(reader));
