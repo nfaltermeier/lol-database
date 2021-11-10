@@ -24,7 +24,7 @@ export default function DataLoader(props) {
   if (props.state.isErrored) {
     return (
       <div>
-        The request failed.
+        <div>The request failed.</div>
         <button onClick={() => setRetries(retries + 1)}>Try Again</button>
       </div>
     );

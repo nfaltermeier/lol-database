@@ -17,11 +17,11 @@ export default function Player() {
         <NoRedirectForm id="player" url="http://localhost:28172/players" method="post">
           <div>
             <label htmlFor="name">Name</label>
-            <input name="name" type="text" />
+            <input name="name" type="text" required />
           </div>
           <div>
             <label htmlFor="teamID">Team</label>
-            <select name="teamID">
+            <select name="teamID" required>
               <option value="">Please choose an option</option>
               {state.data != null && state.data.teams.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
@@ -30,7 +30,7 @@ export default function Player() {
           </div>
           <div>
             <label htmlFor="positionID">Position</label>
-            <select name="positionID">
+            <select name="positionID" required>
               <option value="">Please choose an option</option>
               {state.data != null && state.data.positions.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>

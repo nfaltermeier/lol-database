@@ -1,3 +1,5 @@
+DELETE FROM LoLDB.Champion;
+DBCC CHECKIDENT ('LoLDB.Champion', RESEED, 0);
 DELETE FROM LoLDB.SecondaryRune;
 DBCC CHECKIDENT ('LoLDB.SecondaryRune', RESEED, 0);
 DELETE FROM LoLDB.KeystoneRune;
@@ -54,3 +56,10 @@ VALUES
     ('ADC', 'there'),
     ('Jungle', 'links'),
     ('Coach', 'here');
+
+INSERT INTO LoLDB.Champion([Name])
+VALUES
+    ('Aatrox'),
+    ('Ahri'),
+    ('Akali'),
+    ('Akshan');

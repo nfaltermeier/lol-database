@@ -10,10 +10,22 @@ namespace Backend.Database
 {
     public class DatabaseConnector
     {
-        public static SqlDataReader RunCommand(string sql, SqlParameter[] parameters = null)
+        private static readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDb;Integrated Security=true;";
+        public static SqlDataReader RunQuery(string sql, SqlParameter[] parameters = null)
         {
-            SqlConnection connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDb;Integrated Security=true;");
+            SqlConnection connection = new SqlConnection(connectionString);
             using SqlCommand command = new SqlCommand(sql, connection);
+            connection.Open();
+            if (parameters != null)
+                command.Parameters.AddRange(parameters);
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
+        }
+
+        public static SqlDataReader RunStoredProcedure(string procedureReference, SqlParameter[] parameters = null)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            using SqlCommand command = new SqlCommand(procedureReference, connection);
+            command.CommandType = CommandType.StoredProcedure;
             connection.Open();
             if (parameters != null)
                 command.Parameters.AddRange(parameters);

@@ -10,12 +10,12 @@ export default function Game() {
 
   return (
     <main>
-      <h2>Team</h2>
+      <h2>Game</h2>
       <DataLoader state={state} setState={setState} actions={getData}>
-        <NoRedirectForm id="team" url="http://localhost:28172/games" method="post">
+        <NoRedirectForm id="game" url="http://localhost:28172/games" method="post">
           <div>
-            <label htmlFor="team1ID">Team 1</label>
-            <select name="team1ID">
+            <label htmlFor="winningTeamID">Winning team</label>
+            <select name="winningTeamID" required>
               <option value="">Please choose an option</option>
               {state.data != null && state.data.teams.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
@@ -23,8 +23,8 @@ export default function Game() {
             </select>
           </div>
           <div>
-            <label htmlFor="team2ID">Team 2</label>
-            <select name="team2ID">
+            <label htmlFor="losingTeamID">Losing team</label>
+            <select name="losingTeamID">
               <option value="">Please choose an option</option>
               {state.data != null && state.data.teams.map(element => (
                 <option key={element.id} value={element.id}>{element.name}</option>
@@ -33,11 +33,11 @@ export default function Game() {
           </div>
           <div>
             <label htmlFor="StartDateTime">Game start date time</label>
-            <DateTimeWrapper inputProps={{ name: 'StartDateTime' }} />
+            <DateTimeWrapper inputProps={{ name: 'StartDateTime', required: true }} />
           </div>
           <div>
-            <label htmlFor="nameabbreviation">Name Abbreviation</label>
-            <DateTimeWrapper inputProps={{ name: 'Duration' }} dateFormat={false} timeFormat="HH:mm" />
+            <label htmlFor="nameabbreviation">Game duration</label>
+            <DateTimeWrapper inputProps={{ name: 'Duration', required: true }} dateFormat={false} timeFormat="HH:mm" />
           </div>
         </NoRedirectForm>
       </DataLoader>
