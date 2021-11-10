@@ -1,0 +1,75 @@
+/*!
+ * https://github.com/arqex/react-datetime
+ */
+.datetime-wrapper {
+  .rdtPicker {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    border: 1px solid #f9f9f9;
+  }
+  .rdtPicker td.rdtDay:hover,
+  .rdtPicker td.rdtHour:hover,
+  .rdtPicker td.rdtMinute:hover,
+  .rdtPicker td.rdtSecond:hover,
+  .rdtPicker .rdtTimeToggle:hover {
+    background: #eeeeee;
+  }
+  .rdtPicker td.rdtOld,
+  .rdtPicker td.rdtNew {
+    color: #999999;
+  }
+  .rdtPicker td.rdtToday:before {
+    border-bottom: 7px solid #428bca;
+    border-top-color: rgba(0, 0, 0, 0.2);
+  }
+  .rdtPicker td.rdtActive,
+  .rdtPicker td.rdtActive:hover {
+    background-color: #428bca;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+  .rdtPicker td.rdtActive.rdtToday:before {
+    border-bottom-color: #fff;
+  }
+  .rdtPicker td.rdtDisabled,
+  .rdtPicker td.rdtDisabled:hover {
+    color: #999999;
+  }
+  
+  .rdtPicker td span.rdtOld {
+    color: #999999;
+  }
+  .rdtPicker td span.rdtDisabled,
+  .rdtPicker td span.rdtDisabled:hover {
+    color: #999999;
+  }
+  .rdtPicker th {
+    border-bottom: 1px solid #f9f9f9;
+  }
+  
+  .rdtPicker th.rdtDisabled,
+  .rdtPicker th.rdtDisabled:hover {
+    color: #999999;
+  }
+  .rdtPicker thead tr:first-of-type th:hover {
+    background: #eeeeee;
+  }
+  
+  .rdtPicker tfoot {
+    border-top: 1px solid #f9f9f9;
+  }
+  
+  .rdtPicker button:hover {
+    background-color: #eee;
+  }
+  
+  td.rdtMonth:hover,
+  td.rdtYear:hover {
+    background: #eee;
+  }
+  
+  .rdtCounter .rdtBtn:hover {
+    background: #eee;
+  }
+}
+

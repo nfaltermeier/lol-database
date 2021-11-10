@@ -8,5 +8,5 @@ export default function NotFound() {
       <p>There's nothing here!</p>
       <button onClick={() => navigate(-1)}>Go Back</button>
     </main>
-  )
+  );
 };

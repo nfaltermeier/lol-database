@@ -8,7 +8,10 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "react": "^17.0.2",
+    "react-datetime": "^3.1.1",
     "react-dom": "^17.0.2",
     "react-router": "^6.0.1",
     "react-router-dom": "^6.0.1",
@@ -28,7 +31,10 @@
       "react-app/jest"
     ],
     "rules": {
-      "semi": ["error", "always"]
+      "semi": [
+        "error",
+        "always"
+      ]
     }
   },
   "browserslist": {

@@ -7,6 +7,7 @@ export default function Add() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="team">Team</NavLink>
         <NavLink to="player">Player</NavLink>
+        <NavLink to="game">Game</NavLink>
       </nav>
       <h1>Add data</h1>
       <Outlet />

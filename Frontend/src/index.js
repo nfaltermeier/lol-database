@@ -5,6 +5,7 @@ import './index.scss';
 import Add from './routes/Add';
 import App from './App';
 import NotFound from './routes/404';
+import Game from './routes/add/Game';
 import Player from './routes/add/Player';
 import Team from './routes/add/Team';
 import reportWebVitals from './reportWebVitals';
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route path="/add" element={<Add />} >
           <Route path="team" element={<Team />} />
           <Route path="player" element={<Player />} />
+          <Route path="game" element={<Game />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
