@@ -10,10 +10,9 @@ namespace Backend.Database
 {
     public class DatabaseConnector
     {
-        private static readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDb;Integrated Security=true;";
         public static SqlDataReader RunQuery(string sql, SqlParameter[] parameters = null)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Startup.Configuration["LoLDB:ConfigurationString"]);
             using SqlCommand command = new SqlCommand(sql, connection);
             connection.Open();
             if (parameters != null)
@@ -23,7 +22,7 @@ namespace Backend.Database
 
         public static SqlDataReader RunStoredProcedure(string procedureReference, SqlParameter[] parameters = null)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(Startup.Configuration["LoLDB:ConnectionString"]);
             using SqlCommand command = new SqlCommand(procedureReference, connection);
             command.CommandType = CommandType.StoredProcedure;
             connection.Open();
