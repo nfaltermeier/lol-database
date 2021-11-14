@@ -11,6 +11,7 @@ import PlayerGameStatsAndRunes from './routes/add/PlayerGameStatsAndRunes';
 import Team from './routes/add/Team';
 import Kill from './routes/add/Kill';
 import Item from './routes/add/Item';
+import ItemAcquisition from './routes/add/ItemAcquisition';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -25,6 +26,7 @@ ReactDOM.render(
 					<Route path="game" element={<Game />} />
 					<Route path="kill" element={<Kill />} />
 					<Route path="item" element={<Item />} />
+					<Route path="itemAcquisition" element={<ItemAcquisition />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>
