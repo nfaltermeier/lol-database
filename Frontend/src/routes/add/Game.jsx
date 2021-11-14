@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import DateTimeWrapper from '../../components/DateTimeWrapper';
 import DataLoader from '../../components/DataLoader';
 import NoRedirectForm from "../../components/NoRedirectForm";
+import moment from 'moment';
 
 export default function Game() {
   const [state, setState] = useState({ isLoading: true, isErrored: false, data: null });
@@ -33,7 +34,7 @@ export default function Game() {
           </div>
           <div>
             <label htmlFor="StartDateTime">Game start date time</label>
-            <DateTimeWrapper inputProps={{ name: 'StartDateTime', required: true }} />
+            <DateTimeWrapper inputProps={{ name: 'StartDateTime', required: true }} initialViewDate={moment().hours(12).minutes(0).seconds(0)} />
           </div>
           <div>
             <label htmlFor="nameabbreviation">Game duration</label>
