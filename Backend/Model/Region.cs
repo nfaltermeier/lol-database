@@ -10,7 +10,8 @@ namespace Backend.Model
     {
         public static Region CreateRegion(SqlDataReader dataReader)
         {
-            return new Region(dataReader.GetString(1), dataReader.GetInt32(0));
+            return new Region(dataReader.GetString(1),  // Name
+                              dataReader.GetInt32(0));  // ID
         }
     }
 }

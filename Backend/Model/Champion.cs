@@ -12,7 +12,8 @@ namespace Backend.Model
     {
         public static Champion CreateChampion(SqlDataReader dataReader)
         {
-            return new Champion(dataReader.GetInt32(0), dataReader.GetString(1));
+            return new Champion(dataReader.GetInt32(0),     // ID
+                                dataReader.GetString(1));   // Name
         }
     }
 }

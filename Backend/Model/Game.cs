@@ -12,7 +12,9 @@ namespace Backend.Model
     {
         public static Game CreateGame(SqlDataReader dataReader)
         {
-            return new Game(dataReader.GetInt32(0), dataReader.GetDateTimeOffset(1), dataReader.GetTimeSpan(2));
+            return new Game(dataReader.GetInt32(0),             // ID
+                            dataReader.GetDateTimeOffset(1),    // StartDateTime
+                            dataReader.GetTimeSpan(2));         // Duration
         }
     }
 }

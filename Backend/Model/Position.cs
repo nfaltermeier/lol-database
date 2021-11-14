@@ -10,7 +10,9 @@ namespace Backend.Model
     {
         public static Position CreatePosition(SqlDataReader dataReader)
         {
-            return new Position(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetString(2));
+            return new Position(dataReader.GetInt32(0),     // ID
+                                dataReader.GetString(1),    // Name
+                                dataReader.GetString(2));   // LogoLink
         }
     }
 }

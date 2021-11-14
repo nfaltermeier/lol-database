@@ -10,7 +10,10 @@ namespace Backend.Model
     {
         public static Player CreatePlayer(SqlDataReader dataReader)
         {
-            return new Player(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetInt32(2), dataReader.GetInt32(3));
+            return new Player(dataReader.GetInt32(0),   // ID
+                              dataReader.GetString(1),  // Name
+                              dataReader.GetInt32(2),   // PositionID
+                              dataReader.GetInt32(3));  // TeamID
         }
     }
 }

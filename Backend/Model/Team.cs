@@ -10,7 +10,11 @@ namespace Backend.Model
     {
         public static Team CreateTeam(SqlDataReader dataReader)
         {
-            return new Team(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4));
+            return new Team(dataReader.GetInt32(0),         // ID
+                            dataReader.GetString(1),        // Name
+                            dataReader.GetInt32(2),         // RegionID
+                            dataReader.GetString(3),        // LogoLink
+                            dataReader.GetString(4));       // NameAbbreviation
         }
     }
 }
