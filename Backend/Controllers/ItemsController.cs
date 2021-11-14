@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 namespace Backend.Controllers {
     [ApiController]
     [Route("[controller]")]
-    public class ItemController : ControllerBase {
+    public class ItemsController : ControllerBase {
         [HttpGet]
         public IEnumerable<Item> Get() {
             using var reader = DatabaseConnector.RunQuery("SELECT ItemID, [Name], ItemQualityID, LogoLink FROM LoLDB.Item");
