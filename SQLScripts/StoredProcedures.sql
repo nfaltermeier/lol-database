@@ -46,6 +46,16 @@ FROM LoLDB.Game G
 WHERE G.GameID = @GameID
 GO
 
+CREATE PROCEDURE [LoLDB].[GetTeamsFromGame]
+    @GameID INT
+AS
+SELECT T.TeamID, T.Name, T.RegionID, T.LogoLink, T.NameAbbreviation
+FROM LoLDB.Game G
+    JOIN LoLDB.TeamGame TG ON G.GameID = TG.GameID
+    JOIN LoLDB.Team T ON TG.TeamID = T.TeamID
+WHERE G.GameID = @GameID
+GO
+
 CREATE PROCEDURE [LoLDB].[InsertPlayerGameStatsAndRunes]
     @ChampionID INT,
     @GameID INT,

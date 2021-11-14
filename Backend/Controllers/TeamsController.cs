@@ -24,6 +24,18 @@ namespace Backend.Controllers
             return results;
         }
 
+        [Route("game/{gameID}")]
+        [HttpGet]
+        public IEnumerable<Team> GetTeamsFromGame(int gameID) {
+            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetTeamsFromGame",
+                new SqlParameter[] { new SqlParameter("@GameID", gameID) }
+            );
+            List<Team> results = new();
+            while (reader.Read())
+                results.Add(Team.CreateTeam(reader));
+            return results;
+        }
+
         [HttpPost]
         public void Post([FromForm] Team team)
         {

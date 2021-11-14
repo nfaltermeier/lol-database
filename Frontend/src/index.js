@@ -12,6 +12,7 @@ import Team from './routes/add/Team';
 import Kill from './routes/add/Kill';
 import Item from './routes/add/Item';
 import ItemAcquisition from './routes/add/ItemAcquisition';
+import ObjectiveStat from './routes/add/ObjectiveStat';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -27,6 +28,7 @@ ReactDOM.render(
 					<Route path="kill" element={<Kill />} />
 					<Route path="item" element={<Item />} />
 					<Route path="itemAcquisition" element={<ItemAcquisition />} />
+					<Route path="objectiveStat" element={<ObjectiveStat />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

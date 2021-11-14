@@ -12,6 +12,7 @@ export default function Add() {
 				<NavLink to="playerGameStatsAndRunes">Player Game Stats &amp; Runes</NavLink>
 				<NavLink to="item">Item</NavLink>
 				<NavLink to="itemAcquisition">Item Acquisition</NavLink>
+				<NavLink to="objectiveStat">Objective Stat</NavLink>
 			</nav>
 			<h1>Add data</h1>
 			<Outlet />

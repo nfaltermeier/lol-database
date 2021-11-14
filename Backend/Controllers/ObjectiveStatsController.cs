@@ -23,8 +23,8 @@ namespace Backend.Controllers {
                 new SqlParameter[] {
                     new SqlParameter("@ObjectiveID", objectiveStat.ObjectiveID),
                     new SqlParameter("@GameID", objectiveStat.GameID),
-                    new SqlParameter("@ObjectiveID", objectiveStat.TeamID),
-                    new SqlParameter("@ObjectiveID", objectiveStat.TimeOfCapture)
+                    new SqlParameter("@TeamID", objectiveStat.TeamID),
+                    new SqlParameter("@TimeOfCapture", objectiveStat.TimeOfCapture)
                 }
             ).Close();
         }
