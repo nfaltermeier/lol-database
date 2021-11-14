@@ -54,6 +54,10 @@ input {
     height: $field-height * $button-height-mult;
     width: 100px;
     font-weight: bold;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 select {
