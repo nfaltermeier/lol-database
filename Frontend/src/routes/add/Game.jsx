@@ -6,8 +6,8 @@ import NoRedirectForm from "../../components/NoRedirectForm";
 import moment from 'moment';
 
 export default function Game() {
-  const [state, setState] = useState({ isLoading: true, isErrored: false, data: null });
-  const getData = useMemo(() => [{ key: 'teams', fn: () => (axios.get('http://localhost:28172/teams').then(data => data.data)) }], []);
+	const [state, setState] = useState({ isLoading: true, isErrored: false, data: null });
+	const getData = useMemo(() => [{ key: 'teams', fn: () => (axios.get('http://localhost:28172/teams').then(data => data.data)) }], []);
 
   return (
     <main>

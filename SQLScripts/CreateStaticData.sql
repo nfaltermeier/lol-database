@@ -12,6 +12,8 @@ DELETE FROM LoLDB.ShardRune;
 DBCC CHECKIDENT ('LoLDB.ShardRune', RESEED, 1);
 DELETE FROM LoLDB.Region;
 DBCC CHECKIDENT ('LoLDB.Region', RESEED, 1);
+DELETE FROM LoLDB.Location;
+DBCC CHECKIDENT ('LoLDB.Region', RESEED, 1);
 
 INSERT INTO LoLDB.Region([Name])
 VALUES
@@ -68,3 +70,9 @@ VALUES
     ('Ahri'),
     ('Akali'),
     ('Akshan');
+
+INSERT INTO LolDB.Location([Name])
+VALUES
+    ('Top'),
+    ('Mid'),
+    ('Bottom');
