@@ -71,7 +71,7 @@ VALUES
     ('Akali'),
     ('Akshan');
 
-INSERT INTO LolDB.Location([Name])
+INSERT INTO LoLDB.Location([Name])
 VALUES
     ('Top'),
     ('Mid'),
