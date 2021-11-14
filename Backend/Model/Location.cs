@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Backend.Model {
     public record Location(string Name, int ID) {
         public static Location CreateLocation(SqlDataReader dataReader) {
-            return new Location(dataReader.GetString(1), dataReader.GetInt32(0));
+            return new Location(dataReader.GetString(1),    // Name 
+                                dataReader.GetInt32(0));    // ID
         }
     }
 }

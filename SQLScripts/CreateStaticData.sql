@@ -14,6 +14,11 @@ DELETE FROM LoLDB.Region;
 DBCC CHECKIDENT ('LoLDB.Region', RESEED, 1);
 DELETE FROM LoLDB.Location;
 DBCC CHECKIDENT ('LoLDB.Region', RESEED, 1);
+DELETE FROM LoLDB.Objective;
+DBCC CHECKIDENT ('LoLDB.Objective', RESEED, 1);
+DELETE FROM LoLDB.ItemQuality;
+DBCC CHECKIDENT ('LoLDB.ItemQuality', RESEED, 1);
+
 
 INSERT INTO LoLDB.Region([Name])
 VALUES
@@ -76,3 +81,15 @@ VALUES
     ('Top'),
     ('Mid'),
     ('Bottom');
+
+INSERT INTO LoLDB.Objective([Name], LogoLink)
+VALUES
+    ('Objective01', 'www.temp.com/image01.png'),
+    ('Objective02', 'www.temp.com/image02.png');
+
+INSERT INTO LoLDB.ItemQuality([Name])
+VALUES
+    ('Common'),
+    ('Uncommon'),
+    ('Rare'),
+    ('Legendary');

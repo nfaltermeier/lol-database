@@ -127,3 +127,57 @@ CREATE TABLE LoLDB.[Kill] (
     [Time] TIME NOT NULL,
     LocationID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Location(LocationID)
 );
+
+CREATE TABLE LoLDB.KillAssistant (
+    KillID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.[Kill](KillID),
+    PlayerID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Player(PlayerID),
+
+    PRIMARY KEY (
+        KillID,
+        PlayerID
+    )
+);
+
+CREATE TABLE LoLDB.ItemQuality (
+    ItemQualityID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Name] NVARCHAR(64) NOT NULL UNIQUE
+);
+
+CREATE TABLE LoLDB.Item (
+    ItemID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Name] NVARCHAR(64) NOT NULL UNIQUE,
+    ItemQualityID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.ItemQuality(ItemQualityID),
+    LogoLink NVARCHAR(256) NOT NULL
+);
+
+CREATE TABLE LoLDB.ItemAcquisition (
+    PlayerID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Player(PlayerID),
+    GameID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Game(GameID),
+    ItemID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Item(ItemID),
+    TimeOfAcquisition TIME NOT NULL,
+
+    PRIMARY KEY (
+        PlayerID,
+        GameID,
+        ItemID
+    )
+);
+
+CREATE TABLE LoLDB.Objective (
+    ObjectiveID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Name] NVARCHAR(64) NOT NULL UNIQUE,
+    LogoLink NVARCHAR(256) NOT NULL
+);
+
+CREATE TABLE LoLDB.ObjectiveStat (
+    ObjectiveID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Objective(ObjectiveID),
+    GameID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Game(GameID),
+    TeamID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Team(TeamID),
+    TimeOfCapture TIME NOT NULL,
+
+    PRIMARY KEY (
+        ObjectiveID,
+        GameID,
+        TeamID
+    )
+);
