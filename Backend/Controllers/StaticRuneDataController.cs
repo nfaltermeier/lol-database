@@ -48,5 +48,18 @@ namespace Backend.Controllers
 
             return new StaticRuneData(paths, keystones, secondaries, shards);
         }
+
+        public static KeystoneRune GetKeystoneByID(int id)
+        {
+            using var reader = DatabaseConnector.RunQuery(
+                "SELECT KeystoneRuneID, Name, LogoLink, RunePathID FROM LoLDB.KeystoneRune WHERE KeystoneRuneID = @KeystoneRuneID",
+                new SqlParameter[] { new SqlParameter("@KeystoneRuneID", id) }
+            );
+
+            if (!reader.Read())
+                throw new Exception("Unknown KeystoneRuneID passed to GetKeystoneByID");
+
+            return KeystoneRune.CreateKeystoneRune(reader);
+        }
     }
 }

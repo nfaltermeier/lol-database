@@ -30,8 +30,8 @@ namespace Backend.Controllers
             DatabaseConnector.RunQuery("INSERT INTO LoLDB.Team(Name, RegionID, LogoLink, NameAbbreviation) VALUES (@Name, @RegionID, @LogoLink, @NameAbbreviation)",
                 new SqlParameter[] {
                     new SqlParameter("@Name", team.Name),
-                    new SqlParameter("@PositionID", team.RegionID),
-                    new SqlParameter("@TeamID", team.LogoLink),
+                    new SqlParameter("@RegionID", team.RegionID),
+                    new SqlParameter("@LogoLink", team.LogoLink),
                     new SqlParameter("@NameAbbreviation", team.NameAbbreviation)
                 }
             ).Close();

@@ -24,22 +24,5 @@ namespace Backend.Controllers
                 results.Add(PlayerGameStats.CreatePlayerGameStats(reader));
             return results;
         }
-
-        [HttpPost]
-        public void Post([FromForm] PlayerGameStats pgs)
-        {
-            DatabaseConnector.RunQuery("INSERT INTO LoLDB.PlayerGameStats(ChampionID, GameID, PlayerID, CreepScore, VisionScore, TenMinuteGold, FifteenMinuteGold, EndGold) VALUES (@ChampionID, @GameID, @PlayerID, @CreepScore, @VisionScore, @TenMinuteGold, @FifteenMinuteGold, @EndGold)",
-                new SqlParameter[] {
-                    new SqlParameter("@ChampionID", pgs.ChampionID),
-                    new SqlParameter("@GameID", pgs.GameID),
-                    new SqlParameter("@PlayerID", pgs.PlayerID),
-                    new SqlParameter("@CreepScore", pgs.CreepScore),
-                    new SqlParameter("@VisionScore", pgs.VisionScore),
-                    new SqlParameter("@TenMinuteGold", (object)pgs.TenMinuteGold ?? DBNull.Value),
-                    new SqlParameter("@FifteenMinuteGold", (object)pgs.FifteenMinuteGold ?? DBNull.Value),
-                    new SqlParameter("@EndGold", pgs.EndGold)
-                }
-            ).Close();
-        }
     }
 }

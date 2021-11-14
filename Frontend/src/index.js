@@ -7,7 +7,7 @@ import App from './App';
 import NotFound from './routes/404';
 import Game from './routes/add/Game';
 import Player from './routes/add/Player';
-import PlayerGameStats from './routes/add/PlayerGameStats';
+import PlayerGameStatsAndRunes from './routes/add/PlayerGameStatsAndRunes';
 import Team from './routes/add/Team';
 import Kill from './routes/add/Kill';
 import reportWebVitals from './reportWebVitals';
@@ -20,7 +20,7 @@ ReactDOM.render(
         <Route path="/add" element={<Add />} >
           <Route path="team" element={<Team />} />
           <Route path="player" element={<Player />} />
-          <Route path="playerGameStats" element={<PlayerGameStats />} />
+          <Route path="playerGameStatsAndRunes" element={<PlayerGameStatsAndRunes />} />
           <Route path="game" element={<Game />} />
           <Route path="kill" element={<Kill />} />
         </Route>

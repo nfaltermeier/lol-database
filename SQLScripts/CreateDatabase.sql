@@ -52,22 +52,6 @@ CREATE TABLE LoLDB.TeamGame (
     UNIQUE (GameID, Won)
 );
 
-CREATE TABLE LoLDB.PlayerGameStats (
-    PlayerGameStatsID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-    ChampionID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Champion(ChampionID),
-    GameID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Game(GameID),
-    PlayerID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Player(PlayerID),
-    CreepScore INT NOT NULL,
-    VisionScore INT NOT NULL,
-    TenMinuteGold INT,
-    FifteenMinuteGold INT,
-    EndGold INT NOT NULL,
-
-    UNIQUE (
-        GameID, PlayerID
-    )
-);
-
 CREATE TABLE LoLDB.RunePath (
     RunePathID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
     [Name] NVARCHAR(64) NOT NULL UNIQUE,
@@ -98,25 +82,29 @@ CREATE TABLE LoLDB.ShardRune (
     UNIQUE([Name], Slot)
 );
 
-CREATE TABLE LoLDB.PlayerKeystone (
-    PlayerGameStatsID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.PlayerGameStats(PlayerGameStatsID),
+CREATE TABLE LoLDB.PlayerGameStats (
+    PlayerGameStatsID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    ChampionID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Champion(ChampionID),
+    GameID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Game(GameID),
+    PlayerID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Player(PlayerID),
+    CreepScore INT NOT NULL,
+    VisionScore INT NOT NULL,
+    TenMinuteGold INT,
+    FifteenMinuteGold INT,
+    EndGold INT NOT NULL,
     KeystoneRuneID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.KeystoneRune(KeystoneRuneID),
+    SecondaryRunePathID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.RunePath(RunePathID),
 
-    PRIMARY KEY (PlayerGameStatsID, KeystoneRuneID)
-);
-
-CREATE TABLE LoLDB.PlayerSecondaryRunePath (
-    PlayerGameStatsID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.PlayerGameStats(PlayerGameStatsID),
-    PlayerSecondaryRunePathID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.RunePath(RunePathID),
-
-    PRIMARY KEY (PlayerGameStatsID, PlayerSecondaryRunePathID)
+    UNIQUE (
+        GameID, PlayerID
+    )
 );
 
 CREATE TABLE LoLDB.PlayerSecondaryRune (
     PlayerGameStatsID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.PlayerGameStats(PlayerGameStatsID),
-    PlayerSecondaryRuneID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.SecondaryRune(SecondaryRuneID),
+    SecondaryRuneID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.SecondaryRune(SecondaryRuneID),
 
-    PRIMARY KEY (PlayerGameStatsID, PlayerSecondaryRuneID)
+    PRIMARY KEY (PlayerGameStatsID, SecondaryRuneID)
 );
 
 CREATE TABLE LoLDB.PlayerShard (

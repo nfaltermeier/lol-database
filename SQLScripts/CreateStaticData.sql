@@ -1,15 +1,17 @@
+DELETE FROM LoLDB.Position;
+DBCC CHECKIDENT ('LoLDB.Position', RESEED, 1);
 DELETE FROM LoLDB.Champion;
-DBCC CHECKIDENT ('LoLDB.Champion', RESEED, 0);
+DBCC CHECKIDENT ('LoLDB.Champion', RESEED, 1);
 DELETE FROM LoLDB.SecondaryRune;
-DBCC CHECKIDENT ('LoLDB.SecondaryRune', RESEED, 0);
+DBCC CHECKIDENT ('LoLDB.SecondaryRune', RESEED, 1);
 DELETE FROM LoLDB.KeystoneRune;
-DBCC CHECKIDENT ('LoLDB.KeystoneRune', RESEED, 0);
+DBCC CHECKIDENT ('LoLDB.KeystoneRune', RESEED, 1);
 DELETE FROM LoLDB.RunePath;
-DBCC CHECKIDENT ('LoLDB.RunePath', RESEED, 0);
+DBCC CHECKIDENT ('LoLDB.RunePath', RESEED, 1);
 DELETE FROM LoLDB.ShardRune;
-DBCC CHECKIDENT ('LoLDB.ShardRune', RESEED, 0);
+DBCC CHECKIDENT ('LoLDB.ShardRune', RESEED, 1);
 DELETE FROM LoLDB.Region;
-DBCC CHECKIDENT ('LoLDB.Region', RESEED, 0);
+DBCC CHECKIDENT ('LoLDB.Region', RESEED, 1);
 
 INSERT INTO LoLDB.Region([Name])
 VALUES
@@ -37,7 +39,10 @@ SELECT D.[Name], Slot, D.LogoLink, RunePathID
 FROM (
     VALUES ('Overheal', 'Precision', 1, 'link-add-later'),
         ('Legend: Alacrity', 'Precision', 2, 'link-add-later'),
-        ('Cheap Shot', 'Domination', 1, 'link-add-later')
+        ('Coup De Grace', 'Precision', 3, 'link-add-later'),
+        ('Cheap Shot', 'Domination', 1, 'link-add-later'),
+        ('Zombie Ward', 'Domination', 2, 'link-add-later'),
+        ('Ravenous Hunter', 'Domination', 3, 'link-add-later')
 ) D([Name], RunePathName, Slot, LogoLink)
 JOIN LoLDB.RunePath RP ON D.RunePathName = RP.Name;
 

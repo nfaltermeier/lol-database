@@ -12,7 +12,7 @@ namespace Backend.Database
     {
         public static SqlDataReader RunQuery(string sql, SqlParameter[] parameters = null)
         {
-            SqlConnection connection = new SqlConnection(Startup.Configuration["LoLDB:ConfigurationString"]);
+            SqlConnection connection = new SqlConnection(Startup.Configuration["LoLDB:ConnectionString"]);
             using SqlCommand command = new SqlCommand(sql, connection);
             connection.Open();
             if (parameters != null)

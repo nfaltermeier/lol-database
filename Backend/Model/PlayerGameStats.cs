@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Model
 {
-    public record PlayerGameStats(int ID, int ChampionID, int GameID, int PlayerID, int CreepScore, int VisionScore, int? TenMinuteGold, int? FifteenMinuteGold, int EndGold)
+    public record PlayerGameStats(int ID, int ChampionID, int GameID, int PlayerID, int CreepScore, int VisionScore, int? TenMinuteGold, int? FifteenMinuteGold, int EndGold, int KeystoneRuneID, int SecondaryRunePathID)
     {
         public static PlayerGameStats CreatePlayerGameStats(SqlDataReader dataReader)
         {
@@ -20,7 +20,9 @@ namespace Backend.Model
                 dataReader.GetInt32(5),
                 dataReader.IsDBNull(6) ? null : dataReader.GetInt32(6),
                 dataReader.IsDBNull(7) ? null : dataReader.GetInt32(7),
-                dataReader.GetInt32(8)
+                dataReader.GetInt32(8),
+                dataReader.GetInt32(9),
+                dataReader.GetInt32(10)
             );
         }
     }
