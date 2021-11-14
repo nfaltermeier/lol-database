@@ -13,22 +13,22 @@ import Kill from './routes/add/Kill';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <HashRouter>
-      <Routes>
-        <Route exact path="/" element={<App />} />
-        <Route path="/add" element={<Add />} >
-          <Route path="team" element={<Team />} />
-          <Route path="player" element={<Player />} />
-          <Route path="playerGameStatsAndRunes" element={<PlayerGameStatsAndRunes />} />
-          <Route path="game" element={<Game />} />
-          <Route path="kill" element={<Kill />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </HashRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<HashRouter>
+			<Routes>
+				<Route exact path="/" element={<App />} />
+				<Route path="/add" element={<Add />} >
+					<Route path="team" element={<Team />} />
+					<Route path="player" element={<Player />} />
+					<Route path="playerGameStatsAndRunes" element={<PlayerGameStatsAndRunes />} />
+					<Route path="game" element={<Game />} />
+					<Route path="kill" element={<Kill />} />
+				</Route>
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</HashRouter>
+	</React.StrictMode>,
+	document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
