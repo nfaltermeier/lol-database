@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import "./Add.scss";
 
 export default function Add() {
 	return (
@@ -14,8 +15,10 @@ export default function Add() {
 				<NavLink to="itemAcquisition">Item Acquisition</NavLink>
 				<NavLink to="objectiveStat">Objective Stat</NavLink>
 			</nav>
-			<h1>Add data</h1>
-			<Outlet />
+			<div className="addContainer">
+				<h1>Add Data</h1>
+				<Outlet />
+			</div>
 		</div>
 	);
 };

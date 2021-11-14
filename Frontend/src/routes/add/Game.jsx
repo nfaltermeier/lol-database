@@ -15,7 +15,7 @@ export default function Game() {
 			<DataLoader state={state} setState={setState} actions={getData}>
 				<NoRedirectForm id="game" url="http://localhost:28172/games" method="post">
 					<div>
-						<label htmlFor="winningTeamID">Winning team</label>
+						<label htmlFor="winningTeamID">Winning Team</label>
 						<select name="winningTeamID" required>
 							<option value="">Please choose an option</option>
 							{state.data && state.data.teams.map(element => (
@@ -24,7 +24,7 @@ export default function Game() {
 						</select>
 					</div>
 					<div>
-						<label htmlFor="losingTeamID">Losing team</label>
+						<label htmlFor="losingTeamID">Losing Team</label>
 						<select name="losingTeamID">
 							<option value="">Please choose an option</option>
 							{state.data && state.data.teams.map(element => (
@@ -33,11 +33,11 @@ export default function Game() {
 						</select>
 					</div>
 					<div>
-						<label htmlFor="StartDateTime">Game start date time</label>
+						<label htmlFor="StartDateTime">Game Start Date-Time</label>
 						<DateTimeWrapper inputProps={{ name: 'StartDateTime', required: true }} initialViewDate={moment().hours(12).minutes(0).seconds(0)} />
 					</div>
 					<div>
-						<label htmlFor="nameabbreviation">Game duration</label>
+						<label htmlFor="nameabbreviation">Game Duration</label>
 						<DateTimeWrapper inputProps={{ name: 'Duration', required: true }} dateFormat={false} timeFormat="HH:mm" />
 					</div>
 				</NoRedirectForm>

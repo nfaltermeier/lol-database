@@ -251,7 +251,7 @@ export default function PlayerGameStatsAndRunes() {
 					</div>
 					<hr />
 					<div>
-						<label htmlFor="shardRune1ID">Shard slot 1</label>
+						<label htmlFor="shardRune1ID">Shard Slot 1</label>
 						<select name="shardRune1ID" required disabled={gameID === ''}>
 							<option value="">Please choose an option</option>
 							{state.data && state.data.staticrunedata.shardRunes.filter(e => e.slot === 1).map(element => (
@@ -260,7 +260,7 @@ export default function PlayerGameStatsAndRunes() {
 						</select>
 					</div>
 					<div>
-						<label htmlFor="shardRune2ID">Shard slot 2</label>
+						<label htmlFor="shardRune2ID">Shard Slot 2</label>
 						<select name="shardRune2ID" required disabled={gameID === ''}>
 							<option value="">Please choose an option</option>
 							{state.data && state.data.staticrunedata.shardRunes.filter(e => e.slot === 2).map(element => (
@@ -269,7 +269,7 @@ export default function PlayerGameStatsAndRunes() {
 						</select>
 					</div>
 					<div>
-						<label htmlFor="shardRune3ID">Shard slot 3</label>
+						<label htmlFor="shardRune3ID">Shard Slot 3</label>
 						<select name="shardRune3ID" required disabled={gameID === ''}>
 							<option value="">Please choose an option</option>
 							{state.data && state.data.staticrunedata.shardRunes.filter(e => e.slot === 3).map(element => (

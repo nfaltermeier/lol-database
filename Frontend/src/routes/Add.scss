@@ -1,0 +1,95 @@
+$field-background-color: rgb(48, 46, 54);
+$field-highlight-color: #444; // Unused due to limitations of select
+$field-border-color: #DDD;
+$field-text-color: #DDD;
+$field-border-color-default: #999;
+$field-text-color-default: #999;
+$field-border-color-disabled: #666;
+$field-text-color-disabled: #666;
+$field-font-size: 11pt;
+$field-height: 22pt;
+$field-padding-horizontal: 5px;
+$field-padding-vertical: 3px;
+$field-border-size: 1px;
+$field-border-style: solid;
+
+$button-height-mult: 1.25;
+
+$header-spacing-vertical: 5px;
+
+
+.addContainer {
+    padding-left: 20px;
+
+    & > h1 {
+        margin-bottom : $header-spacing-vertical;
+    }
+
+    & > main {
+        & > h2 {
+            margin-top: $header-spacing-vertical;
+        }
+    }
+}
+
+input {
+    color: $field-text-color;
+    background-color: $field-background-color;
+
+    height: $field-height - 8px; // Offset for internal input field's extra height
+    font-size: $field-font-size;
+
+    padding-left: $field-padding-horizontal;
+    padding-right: $field-padding-horizontal;
+    padding-top: $field-padding-vertical;
+    padding-bottom: $field-padding-vertical;
+
+    border-width: $field-border-size;
+    border-style: $field-border-style;
+    border-color: $field-border-color;
+}
+
+#submit {
+    margin-top: 12px; 
+    height: $field-height * $button-height-mult;
+    width: 100px;
+    font-weight: bold;
+}
+
+select {
+    color: $field-text-color;
+    background-color: $field-background-color;
+
+    height: $field-height;
+    font-size: $field-font-size;
+
+    padding-left: $field-padding-horizontal;
+    padding-right: $field-padding-horizontal;
+    padding-top: $field-padding-vertical;
+    padding-bottom: $field-padding-vertical;
+
+    border-width: $field-border-size;
+    border-style: $field-border-style;
+    border-color: $field-border-color;
+
+    &:disabled {
+        color: $field-text-color-disabled;
+        opacity: 1;
+        border-color: $field-border-color-disabled;
+    }
+
+    &:invalid {
+        color: $field-text-color-default;
+        border-color: $field-border-color-default;
+
+        & > option {
+            color: $field-text-color;
+            background-color: $field-background-color;
+        }
+    }
+}
+
+label {
+    display: block;
+    margin-bottom: 3px;
+}
