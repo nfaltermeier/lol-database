@@ -1,5 +1,5 @@
 # League of Legends Database
-A database designed to store information about the 2021 League of Legends Championship Series tournament matches. This is a project for our databases class.
+A database, REST API, and webpage designed to store information about the 2021 League of Legends Championship Series tournament matches. This is a project for our databases class.
 
 ## Technical Details
 ### Frontend
