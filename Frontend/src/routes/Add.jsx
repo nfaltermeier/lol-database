@@ -14,6 +14,7 @@ export default function Add() {
 				<NavLink to="item">Item</NavLink>
 				<NavLink to="itemAcquisition">Item Acquisition</NavLink>
 				<NavLink to="objectiveStat">Objective Stat</NavLink>
+				<NavLink to="killAssist">Kill Assist</NavLink>
 			</nav>
 			<div className="addContainer">
 				<h1>Add Data</h1>

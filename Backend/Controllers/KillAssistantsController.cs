@@ -22,7 +22,7 @@ namespace Backend.Controllers {
             DatabaseConnector.RunQuery("INSERT INTO LoLDB.KillAssistant(KillID, PlayerID) VALUES (@KillID, @PlayerID)",
                 new SqlParameter[] {
                     new SqlParameter("@KillID", killAssistant.KillID),
-                    new SqlParameter("@PlayerID", killAssistant.PlayerID)
+                    new SqlParameter("@PlayerID", killAssistant.AssisterPlayerID)
                 }
             ).Close();
         }

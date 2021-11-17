@@ -108,3 +108,16 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [LoLDB].[GetKillsPerGamePlayer]
+    @GameID INT,
+    @PlayerID INT
+AS
+SELECT K.KillID,
+       K.LocationID,
+       P.[Name] + ' killed ' + PV.[Name] + ' at ' + CONVERT(NVARCHAR, K.Time, 0) AS [Name]
+FROM LoLDB.Player P
+    JOIN LoLDB.[Kill] K ON P.PlayerID = K.KillerID
+    JOIN LoLDB.Player PV ON K.VictimID = PV.PlayerID
+WHERE P.PlayerID = @PlayerID 
+    AND K.GameID = @GameID
+GO

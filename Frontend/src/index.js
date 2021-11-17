@@ -13,6 +13,7 @@ import Kill from './routes/add/Kill';
 import Item from './routes/add/Item';
 import ItemAcquisition from './routes/add/ItemAcquisition';
 import ObjectiveStat from './routes/add/ObjectiveStat';
+import KillAssist from './routes/add/KillAssist';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -29,6 +30,7 @@ ReactDOM.render(
 					<Route path="item" element={<Item />} />
 					<Route path="itemAcquisition" element={<ItemAcquisition />} />
 					<Route path="objectiveStat" element={<ObjectiveStat />} />
+					<Route path="killAssist" element={<KillAssist />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

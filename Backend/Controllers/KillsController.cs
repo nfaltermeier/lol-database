@@ -22,6 +22,21 @@ namespace Backend.Controllers {
             return results;
         }
 
+        [Route("perGamePlayer")]
+        [HttpGet]
+        public IEnumerable<KillPerGamePlayer> GetKillsPerGamePlayer(int GameID, int PlayerID) {
+            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetKillsPerGamePlayer",
+                new SqlParameter[] { new SqlParameter("@GameID", GameID),
+                                     new SqlParameter("@PlayerID", PlayerID) }
+            );
+            List<KillPerGamePlayer> results = new();
+            while (reader.Read())
+                results.Add(KillPerGamePlayer.CreateKillPerGamePlayer(reader));
+            return results;
+        }
+
+
+
         [HttpPost]
         public void Post([FromForm] Kill kill) {
             DatabaseConnector.RunQuery("INSERT INTO LoLDB.[Kill](GameID, KillerID, VictimID, Time, LocationID) VALUES (@GameID, @KillerID, @VictimID, @Time, @LocationID)",
