@@ -12,6 +12,6 @@ This project is designed to use a SQL Server database. Scripts to create tables,
 ## Running
 Setup a SQL Server database using the provided scripts, and enter the database information into a `Backend/Secrets.ini` file as described by the README in `Backend`.
 
-Open the backend solution in visual studio and use the `IIS Express` run configuration. The database should be accessible at [http://localhost:28172/]()`.
+Open the backend solution in visual studio and use the `IIS Express` run configuration. The database should be accessible at [http://localhost:28172/](http://localhost:28172/).
 
-Install the dependencies for the frontend by running `npm install` in the `Frontend` folder. Start the development server by running `npm start`. The frontend will be accessible at [http://localhost:3000/]().
+Install the dependencies for the frontend by running `npm install` in the `Frontend` folder. Start the development server by running `npm start`. The frontend will be accessible at [http://localhost:3000/](http://localhost:3000/).
