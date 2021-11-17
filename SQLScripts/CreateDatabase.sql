@@ -95,9 +95,8 @@ CREATE TABLE LoLDB.PlayerGameStats (
     KeystoneRuneID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.KeystoneRune(KeystoneRuneID),
     SecondaryRunePathID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.RunePath(RunePathID),
 
-    UNIQUE (
-        GameID, PlayerID
-    )
+    UNIQUE (GameID, PlayerID),
+    UNIQUE (GameID, ChampionID)
 );
 
 CREATE TABLE LoLDB.PlayerSecondaryRune (

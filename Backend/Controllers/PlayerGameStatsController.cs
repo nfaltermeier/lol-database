@@ -18,7 +18,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IEnumerable<PlayerGameStats> Get()
         {
-            using var reader = DatabaseConnector.RunQuery("SELECT ID, ChampionID, GameID, PlayerID, CreepScore, VisionScore, TenMinuteGold, FifteenMinuteGold, EndGold FROM LoLDB.PlayerGameStats");
+            using var reader = DatabaseConnector.RunQuery("SELECT PlayerGameStatsID, ChampionID, GameID, PlayerID, CreepScore, VisionScore, TenMinuteGold, FifteenMinuteGold, EndGold, KeystoneRuneID, SecondaryRunePathID FROM LoLDB.PlayerGameStats");
             List<PlayerGameStats> results = new();
             while (reader.Read())
                 results.Add(PlayerGameStats.CreatePlayerGameStats(reader));

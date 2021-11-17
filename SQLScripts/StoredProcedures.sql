@@ -121,3 +121,19 @@ FROM LoLDB.Player P
 WHERE P.PlayerID = @PlayerID 
     AND K.GameID = @GameID
 GO
+
+CREATE PROCEDURE [LoLDB].[GetMostPlayedChampions]
+    @Limit BIGINT = 9223372036854775807,
+    @StartDate DATETIMEOFFSET,
+    @EndDate DATETIMEOFFSET
+AS
+SELECT RANK() OVER(ORDER BY COUNT(*) DESC) AS [Rank], C.Name, COUNT(*) AS TimesPlayed
+FROM LoLDB.PlayerGameStats PGS
+    JOIN LoLDB.Game G ON PGS.GameID = G.GameID
+    JOIN LoLDB.Champion C ON PGS.ChampionID = C.ChampionID
+WHERE G.StartDateTime BETWEEN @StartDate AND @EndDate
+GROUP BY PGS.ChampionID, C.Name
+ORDER BY [Rank] ASC, [Name] ASC
+OFFSET 0 ROWS
+FETCH FIRST @Limit ROWS ONLY
+GO

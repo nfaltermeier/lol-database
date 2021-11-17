@@ -15,12 +15,17 @@ import ItemAcquisition from './routes/add/ItemAcquisition';
 import ObjectiveStat from './routes/add/ObjectiveStat';
 import KillAssist from './routes/add/KillAssist';
 import reportWebVitals from './reportWebVitals';
+import Homepage from './routes/Homepage';
+import MostPlayedChampions from './routes/MostPlayedChampions';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<HashRouter>
 			<Routes>
-				<Route exact path="/" element={<App />} />
+				<Route path="/" element={<App />} >
+					<Route exact path="/" element={<Homepage />} />
+					<Route path="mostPlayedChampions" element={<MostPlayedChampions />} />
+				</Route>
 				<Route path="/add" element={<Add />} >
 					<Route path="team" element={<Team />} />
 					<Route path="player" element={<Player />} />
