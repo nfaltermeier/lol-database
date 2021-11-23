@@ -127,13 +127,37 @@ CREATE PROCEDURE [LoLDB].[GetMostPlayedChampions]
     @StartDate DATETIMEOFFSET,
     @EndDate DATETIMEOFFSET
 AS
-SELECT RANK() OVER(ORDER BY COUNT(*) DESC) AS [Rank], C.Name, COUNT(*) AS TimesPlayed
-FROM LoLDB.PlayerGameStats PGS
-    JOIN LoLDB.Game G ON PGS.GameID = G.GameID
-    JOIN LoLDB.Champion C ON PGS.ChampionID = C.ChampionID
-WHERE G.StartDateTime BETWEEN @StartDate AND @EndDate
-GROUP BY PGS.ChampionID, C.Name
-ORDER BY [Rank] ASC, [Name] ASC
-OFFSET 0 ROWS
-FETCH FIRST @Limit ROWS ONLY
+WITH [Data] AS (
+    SELECT C.Name, COUNT(*) AS TimesPlayed
+    FROM LoLDB.PlayerGameStats PGS
+        JOIN LoLDB.Game G ON PGS.GameID = G.GameID
+        JOIN LoLDB.Champion C ON PGS.ChampionID = C.ChampionID
+    WHERE G.StartDateTime BETWEEN @StartDate AND @EndDate
+    GROUP BY PGS.ChampionID, C.Name
+    ORDER BY TimesPlayed DESC, [Name] ASC
+    OFFSET 0 ROWS
+    FETCH FIRST @Limit ROWS ONLY
+)
+SELECT RANK() OVER(ORDER BY TimesPlayed DESC) AS [Rank], [Name], TimesPlayed
+FROM [Data]
+GO
+
+CREATE PROCEDURE [LoLDB].[GetTeamRankings]
+    @Limit BIGINT = 9223372036854775807,
+    @StartDate DATETIMEOFFSET,
+    @EndDate DATETIMEOFFSET
+AS
+WITH [Data] AS (
+    SELECT T.Name, SUM(IIF(TG.Won = 1, 1, 0)) AS Wins, SUM(IIF(TG.Won = 0, 1, 0)) AS Losses
+    FROM LoLDB.TeamGame TG
+        JOIN LoLDB.Team T ON TG.TeamID = T.TeamID
+        JOIN LoLDB.Game G ON TG.GameID = G.GameID
+    WHERE G.StartDateTime BETWEEN @StartDate AND @EndDate
+    GROUP BY TG.TeamID, T.Name
+    ORDER BY Wins DESC, [Name] ASC
+    OFFSET 0 ROWS
+    FETCH FIRST @Limit ROWS ONLY
+)
+SELECT RANK() OVER(ORDER BY Wins DESC) AS [Rank], [Name], Wins, Losses, (Wins * 100.0 / (Wins + Losses)) AS WinLossRatio
+FROM [Data]
 GO

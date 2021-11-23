@@ -1,36 +1,40 @@
 import axios from 'axios';
+import classNames from 'classnames/bind';
 import { useMemo, useState } from 'react';
 import DataLoader from '../components/DataLoader';
 import DoubleDatePicker, { defaultStartDate, defaultEndDate } from '../components/DoubleDatePicker';
+import TeamRanking from '../components/TeamRanking';
+import styles from './TeamRankings.module.scss';
 
-export default function MostPlayedChampions() {
+export default function TeamRankings() {
 	const [startDate, setStartDate] = useState(defaultStartDate);
 	const [endDate, setEndDate] = useState(defaultEndDate);
 	const [state, setState] = useState({ isLoading: true, isErrored: false, data: null });
 	const getData = useMemo(() => [
-		{ key: 'mostPlayedChampions', fn: () => (
-				axios.get(`http://localhost:28172/mostPlayedChampions?StartDate=${encodeURIComponent(startDate)}&EndDate=${encodeURIComponent(endDate)}`)
+		{ key: 'teamRankings', fn: () => (
+				axios.get(`http://localhost:28172/teamRankings?StartDate=${encodeURIComponent(startDate)}&EndDate=${encodeURIComponent(endDate)}`)
 				.then(data => data.data)
 			) }
 	], [startDate, endDate]);
 
-	let mostPlayedChampions;
-	if (state.data && state.data.mostPlayedChampions.length > 0) {
-		mostPlayedChampions = state.data.mostPlayedChampions.map(e => (
-			<p key={e.name}>{`${e.rank}. ${e.name} (${e.count} time${e.count !== 1 ? 's' : ''})`}</p>
+	let teamRankings;
+	if (state.data && state.data.teamRankings.length > 0) {
+		teamRankings = state.data.teamRankings.map(e => (
+			<TeamRanking key={e.name} rank={e.rank} name={e.name} wins={e.wins} losses={e.losses} winLossRatio={e.winLossRatio} />
 		));
 	} else {
-		mostPlayedChampions = <p>No player statistics found. Try expanding the date range.</p>;
+		teamRankings = <p>No games found</p>;
 	}
 
+	const cx = classNames.bind(styles);
 	return (
 		<main>
 			<DataLoader state={state} setState={setState} actions={getData}>
 				<div>
 					<DoubleDatePicker startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
-					<h3>Most Played Champions</h3>
-					<div>
-						{mostPlayedChampions}
+					<h3>Team Rankings</h3>
+					<div className={cx('ranking-wrapper')}>
+						{teamRankings}
 					</div>
 				</div>
 			</DataLoader>

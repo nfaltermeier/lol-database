@@ -9,6 +9,7 @@ function App() {
 			<nav>
 				<NavLink to="/">Home</NavLink>
 				<NavLink to="/mostPlayedChampions">Most Played Champions</NavLink>
+				<NavLink to="/teamRankings">Team Rankings</NavLink>
 				<NavLink to="/add">Add Data</NavLink>
 			</nav>
 			<header className={cx('app-header')}>

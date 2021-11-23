@@ -17,6 +17,7 @@ import KillAssist from './routes/add/KillAssist';
 import reportWebVitals from './reportWebVitals';
 import Homepage from './routes/Homepage';
 import MostPlayedChampions from './routes/MostPlayedChampions';
+import TeamRankings from './routes/TeamRankings';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -25,6 +26,7 @@ ReactDOM.render(
 				<Route path="/" element={<App />} >
 					<Route exact path="/" element={<Homepage />} />
 					<Route path="mostPlayedChampions" element={<MostPlayedChampions />} />
+					<Route path="teamRankings" element={<TeamRankings />} />
 				</Route>
 				<Route path="/add" element={<Add />} >
 					<Route path="team" element={<Team />} />

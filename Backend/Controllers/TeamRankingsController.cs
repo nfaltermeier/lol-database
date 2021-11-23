@@ -13,7 +13,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MostPlayedChampionsController : ControllerBase
+    public class TeamRankingsController : ControllerBase
     {
         [HttpGet]
         public ActionResult Get(DateTimeOffset StartDate, DateTimeOffset EndDate, long? Limit)
@@ -34,10 +34,10 @@ namespace Backend.Controllers
             };
             if (Limit is long l)
                 parameters.Add(new SqlParameter("@Limit", l));
-            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetMostPlayedChampions", parameters.ToArray());
-            List<MostPlayedChampion> results = new();
+            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetTeamRankings", parameters.ToArray());
+            List<TeamRanking> results = new();
             while (reader.Read())
-                results.Add(MostPlayedChampion.CreateMostPlayedChampion(reader));
+                results.Add(TeamRanking.CreateTeamRanking(reader));
             return new ObjectResult(results);
         }
     }

@@ -103,7 +103,7 @@ FROM (
         ('Biscuit Delivery', 'Inspiration', 2, 'link-add-later'),
         ('Cosmic Insight', 'Inspiration', 3, 'link-add-later'),
         ('Approach Velocity', 'Inspiration', 3, 'link-add-later'),
-        ('Time Warp Tonic', 'Inspiration', 3, 'link-add-later'),
+        ('Time Warp Tonic', 'Inspiration', 3, 'link-add-later')
 ) D([Name], RunePathName, Slot, LogoLink)
 JOIN LoLDB.RunePath RP ON D.RunePathName = RP.Name;
 
