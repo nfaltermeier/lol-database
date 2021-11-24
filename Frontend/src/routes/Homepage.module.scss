@@ -1,5 +1,6 @@
 :local {
-	.inline {
-		display: inline-block;
+	.table {
+		width: 100%;
+		table-layout: fixed;
 	}
 }

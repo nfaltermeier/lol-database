@@ -37,16 +37,18 @@ export default function Homepage() {
 	return (
 		<main>
 			<DataLoader state={state} setState={setState} actions={getData}>
-				<div className={cx('inline')}>
-					<Link to="mostPlayedChampions"><h3>Most Played Champions</h3></Link>
-					<div>
-						{mostPlayedChampions}
-					</div>
-					<Link to="teamRankings"><h3>Team Rankings</h3></Link>
-					<div>
-						{teamRankings}
-					</div>
-				</div>
+				<table className={cx('table')}>
+					<thead>
+						<td><Link to="mostPlayedChampions"><h3>Most Played Champions</h3></Link></td>
+						<td><Link to="teamRankings"><h3>Team Rankings</h3></Link></td>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{mostPlayedChampions}</td>
+							<td>{teamRankings}</td>
+						</tr>
+					</tbody>
+				</table>
 			</DataLoader>
 		</main>
 	);
