@@ -161,3 +161,108 @@ WITH [Data] AS (
 SELECT RANK() OVER(ORDER BY Wins DESC) AS [Rank], [Name], Wins, Losses, (Wins * 100.0 / (Wins + Losses)) AS WinLossRatio
 FROM [Data]
 GO
+
+
+-- Report Queries
+CREATE PROCEDURE [LoLDB].[SelectivePlayerStatistics]
+    @PlayerID INT,
+    @StartDateTime DATETIMEOFFSET,
+    @EndDateTime DATETIMEOFFSET
+AS
+SELECT (SELECT TOP 1 PGS2.ChampionID 
+        FROM LoLDB.PlayerGameStats PGS2
+        WHERE PGS2.PlayerID = @PlayerID
+        GROUP BY PGS2.ChampionID
+        ORDER BY COUNT(PGS2.ChampionID) DESC
+       ) AS MostPlayedChampionID,
+       MAX(CAST(PGS.CreepScore AS FLOAT)) AS MaxCreepScore,
+       AVG(CAST(PGS.CreepScore AS FLOAT)) AS AverageCreepScore,
+       MAX(CAST(PGS.VisionScore AS FLOAT)) AS MaxVisionScore,
+       AVG(CAST(PGS.VisionScore AS FLOAT)) AS AverageVisionScore,
+       MAX(CAST(PGS.TenMinuteGold AS FLOAT)) AS Max10MinGold,
+       AVG(CAST(PGS.TenMinuteGold AS FLOAT)) AS Average10MinGold,
+       MAX(CAST(PGS.FifteenMinuteGold AS FLOAT)) AS Max15MinGold,
+       AVG(CAST(PGS.FifteenMinuteGold AS FLOAT)) AS Average15MinGold,
+       MAX(CAST(PGS.EndGold AS FLOAT)) AS MaxEndGold,
+       AVG(CAST(PGS.EndGold AS FLOAT)) AS AverageEndGold,
+       (SELECT TOP 1 PGS3.KeystoneRuneID 
+        FROM LoLDB.PlayerGameStats PGS3 
+        WHERE PGS3.PlayerID = @PlayerID
+        GROUP BY PGS3.KeystoneRuneID
+        ORDER BY COUNT(PGS3.KeystoneRuneID) DESC
+       ) AS MostChosenRuneKeystone,
+       LoLDB.MostChosenShard(@PlayerID, 1) AS MostChosenShard1,
+       LoLDB.MostChosenShard(@PlayerID, 2) AS MostChosenShard2,
+       LoLDB.MostChosenShard(@PlayerID, 3) AS MostChosenShard3
+FROM LoLDB.PlayerGameStats PGS
+    JOIN LoLDB.Game G ON G.GameID = PGS.GameID
+WHERE PGS.PlayerID = @PlayerID AND
+      G.StartDateTime BETWEEN @StartDateTime AND @EndDateTime
+GO
+
+
+CREATE PROCEDURE [LoLDB].[TopTeamPlayers]
+    @StartDateTime DATETIMEOFFSET,
+    @EndDateTime DATETIMEOFFSET
+AS 
+SELECT P.[Name] AS PlayerName,
+       T.[Name] AS PlayerTeam,
+       COUNT(K.KillID) AS KillCount,
+       (
+           SELECT TOP 1 PGS.ChampionID AS MostPlayedChampion
+           FROM LoLDB.TeamGame TG
+                INNER JOIN LoLDB.PlayerGameStats PGS
+                    ON PGS.GameID = TG.GameID
+                INNER JOIN LoLDB.Champion C
+                    ON C.ChampionID = PGS.ChampionID
+           WHERE TG.TeamID = T.TeamID 
+                --AND PGS.PlayerID = P.PlayerID
+           GROUP BY PGS.ChampionID
+           ORDER BY SUM(PGS.GameID) DESC
+       ) AS MostPlayedChampion
+FROM LoLDB.Player P
+    INNER JOIN LoLDB.Team T
+        ON T.TeamID = P.TeamID
+    LEFT JOIN LoLDB.[Kill] K
+        ON K.KillerID = P.PlayerID
+GROUP BY P.[Name], 
+         T.[Name],
+         T.TeamID
+GO
+
+
+CREATE PROCEDURE [LoLDB].[TopTeamPlayers2]
+    @StartDateTime DATETIMEOFFSET,
+    @EndDateTime DATETIMEOFFSET
+AS 
+SELECT PV.PlayerName AS PlayerName,
+       T.[Name] AS PlayerTeam,
+       PV.KillCount AS KillCount,
+       PV.MostPlayedChampion AS MostPlayedChampion
+FROM LoLDB.Team T
+    INNER JOIN (
+        SELECT P.[Name] AS PlayerName,
+               P.TeamID AS TeamID,
+               COUNT(K.KillID) AS KillCount,
+               (
+                   SELECT TOP 1 PGS.ChampionID AS MostPlayedChampion
+                   FROM LoLDB.TeamGame TG
+                        INNER JOIN LoLDB.PlayerGameStats PGS
+                            ON PGS.GameID = TG.GameID
+                        INNER JOIN LoLDB.Champion C
+                            ON C.ChampionID = PGS.ChampionID
+                   WHERE TG.TeamID = P.TeamID 
+                        --AND PGS.PlayerID = P.PlayerID
+                   GROUP BY PGS.ChampionID
+                   ORDER BY SUM(PGS.GameID) DESC
+               ) AS MostPlayedChampion
+        FROM LoLDB.Player P
+            LEFT JOIN LoLDB.[Kill] K
+                ON K.KillerID = P.PlayerID
+        GROUP BY P.[Name],
+                 P.TeamID
+    ) PV
+        ON T.TeamID = PV.TeamID
+GROUP BY T.[Name],
+         T.TeamID
+GO
