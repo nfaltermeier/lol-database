@@ -19,6 +19,7 @@ EXEC sp_MSforeachtable
 , @whereand = 'AND SCHEMA_NAME(schema_id) = ''LoLDB'' '
 
 DROP FUNCTION IF EXISTS [LoLDB].[MostChosenShard]
+DROP FUNCTION IF EXISTS [LoLDB].[MostPlayedChampion]
 
 DROP PROCEDURE IF EXISTS [LoLDB].[InsertGameAndTeams]
 DROP PROCEDURE IF EXISTS [LoLDB].[GetNamedTeams]
@@ -29,5 +30,6 @@ DROP PROCEDURE IF EXISTS [LoLDB].[GetKillsPerGamePlayer]
 DROP PROCEDURE IF EXISTS [LoLDB].[GetTeamRankings]
 DROP PROCEDURE IF EXISTS [LoLDB].[GetMostPlayedChampions]
 DROP PROCEDURE IF EXISTS [LoLDB].[SelectivePlayerStatistics]
+DROP PROCEDURE IF EXISTS [LoLDB].[TopTeamPlayers]
 
 DROP SCHEMA LoLDB

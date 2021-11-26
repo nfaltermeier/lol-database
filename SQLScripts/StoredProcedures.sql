@@ -122,6 +122,8 @@ WHERE P.PlayerID = @PlayerID
     AND K.GameID = @GameID
 GO
 
+
+-- Report Queries
 CREATE PROCEDURE [LoLDB].[GetMostPlayedChampions]
     @Limit BIGINT = 9223372036854775807,
     @StartDate DATETIMEOFFSET,
@@ -162,19 +164,12 @@ SELECT RANK() OVER(ORDER BY Wins DESC) AS [Rank], [Name], Wins, Losses, (Wins * 
 FROM [Data]
 GO
 
-
--- Report Queries
 CREATE PROCEDURE [LoLDB].[SelectivePlayerStatistics]
     @PlayerID INT,
     @StartDateTime DATETIMEOFFSET,
     @EndDateTime DATETIMEOFFSET
 AS
-SELECT (SELECT TOP 1 PGS2.ChampionID 
-        FROM LoLDB.PlayerGameStats PGS2
-        WHERE PGS2.PlayerID = @PlayerID
-        GROUP BY PGS2.ChampionID
-        ORDER BY COUNT(PGS2.ChampionID) DESC
-       ) AS MostPlayedChampionID,
+SELECT LoLDB.MostPlayedChampion(@PlayerID, @StartDateTime, @EndDateTime) AS MostPlayedChampionID,
        MAX(CAST(PGS.CreepScore AS FLOAT)) AS MaxCreepScore,
        AVG(CAST(PGS.CreepScore AS FLOAT)) AS AverageCreepScore,
        MAX(CAST(PGS.VisionScore AS FLOAT)) AS MaxVisionScore,
@@ -207,62 +202,18 @@ CREATE PROCEDURE [LoLDB].[TopTeamPlayers]
 AS 
 SELECT P.[Name] AS PlayerName,
        T.[Name] AS PlayerTeam,
-       COUNT(K.KillID) AS KillCount,
-       (
-           SELECT TOP 1 PGS.ChampionID AS MostPlayedChampion
-           FROM LoLDB.TeamGame TG
-                INNER JOIN LoLDB.PlayerGameStats PGS
-                    ON PGS.GameID = TG.GameID
-                INNER JOIN LoLDB.Champion C
-                    ON C.ChampionID = PGS.ChampionID
-           WHERE TG.TeamID = T.TeamID 
-                --AND PGS.PlayerID = P.PlayerID
-           GROUP BY PGS.ChampionID
-           ORDER BY SUM(PGS.GameID) DESC
-       ) AS MostPlayedChampion
-FROM LoLDB.Player P
-    INNER JOIN LoLDB.Team T
-        ON T.TeamID = P.TeamID
-    LEFT JOIN LoLDB.[Kill] K
-        ON K.KillerID = P.PlayerID
-GROUP BY P.[Name], 
-         T.[Name],
-         T.TeamID
-GO
-
-
-CREATE PROCEDURE [LoLDB].[TopTeamPlayers2]
-    @StartDateTime DATETIMEOFFSET,
-    @EndDateTime DATETIMEOFFSET
-AS 
-SELECT PV.PlayerName AS PlayerName,
-       T.[Name] AS PlayerTeam,
-       PV.KillCount AS KillCount,
-       PV.MostPlayedChampion AS MostPlayedChampion
-FROM LoLDB.Team T
-    INNER JOIN (
-        SELECT P.[Name] AS PlayerName,
-               P.TeamID AS TeamID,
-               COUNT(K.KillID) AS KillCount,
-               (
-                   SELECT TOP 1 PGS.ChampionID AS MostPlayedChampion
-                   FROM LoLDB.TeamGame TG
-                        INNER JOIN LoLDB.PlayerGameStats PGS
-                            ON PGS.GameID = TG.GameID
-                        INNER JOIN LoLDB.Champion C
-                            ON C.ChampionID = PGS.ChampionID
-                   WHERE TG.TeamID = P.TeamID 
-                        --AND PGS.PlayerID = P.PlayerID
-                   GROUP BY PGS.ChampionID
-                   ORDER BY SUM(PGS.GameID) DESC
-               ) AS MostPlayedChampion
-        FROM LoLDB.Player P
-            LEFT JOIN LoLDB.[Kill] K
-                ON K.KillerID = P.PlayerID
-        GROUP BY P.[Name],
-                 P.TeamID
-    ) PV
-        ON T.TeamID = PV.TeamID
-GROUP BY T.[Name],
-         T.TeamID
+       PV.PlayerKillCount AS KillCount,
+       LoLDB.MostPlayedChampion(PV.PlayerID, @StartDateTime, @EndDateTime) AS MostPlayedChampion
+FROM (
+    SELECT TOP 1 P.PlayerID AS PlayerID,
+                 P.TeamID AS TeamID,
+                 COUNT(K.KillID) AS PlayerKillCount
+    FROM LoLDB.Player P
+        JOIN LoLDB.[Kill] K ON K.KillerID = P.PlayerID
+    GROUP BY P.PlayerID,
+             P.TeamID
+    ORDER BY COUNT(K.KillID) DESC
+) PV
+    JOIN LoLDB.Player P ON P.PlayerID = PV.PlayerID
+    JOIN LoLDB.Team T ON T.TeamID = PV.TeamID
 GO
