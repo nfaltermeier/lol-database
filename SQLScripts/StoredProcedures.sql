@@ -188,9 +188,9 @@ SELECT LoLDB.MostPlayedChampion(@PlayerID, @StartDateTime, @EndDateTime) AS Most
         GROUP BY PGS2.KeystoneRuneID
         ORDER BY COUNT(PGS2.KeystoneRuneID) DESC
        ) AS MostChosenRuneKeystone,
-       LoLDB.MostChosenShard(@PlayerID, 1) AS MostChosenShard1,
-       LoLDB.MostChosenShard(@PlayerID, 2) AS MostChosenShard2,
-       LoLDB.MostChosenShard(@PlayerID, 3) AS MostChosenShard3
+       LoLDB.MostChosenShard(@PlayerID, 1, @StartDateTime, @EndDateTime) AS MostChosenShard1,
+       LoLDB.MostChosenShard(@PlayerID, 2, @StartDateTime, @EndDateTime) AS MostChosenShard2,
+       LoLDB.MostChosenShard(@PlayerID, 3, @StartDateTime, @EndDateTime) AS MostChosenShard3
 FROM LoLDB.PlayerGameStats PGS
     JOIN LoLDB.Game G ON G.GameID = PGS.GameID
 WHERE PGS.PlayerID = @PlayerID AND
