@@ -36,3 +36,24 @@ RETURN (
 )
 END
 GO
+
+CREATE FUNCTION [LoLDB].[TopTeamKiller] (
+    @TeamID INT,
+    @StartDateTime DATETIMEOFFSET,
+    @EndDateTime DATETIMEOFFSET
+)
+RETURNS INT
+AS 
+BEGIN
+RETURN (
+    SELECT TOP 1 P.PlayerID
+    FROM LoLDB.Player P
+        JOIN LoLDB.[Kill] K ON K.KillerID = P.PlayerID
+        JOIN LoLDB.Game G ON G.GameID = K.GameID
+    WHERE P.TeamID = @TeamID AND 
+          G.StartDateTime BETWEEN @StartDateTime AND @EndDateTime
+    GROUP BY P.PlayerID
+    ORDER BY COUNT(K.KillID) DESC
+)
+END
+GO

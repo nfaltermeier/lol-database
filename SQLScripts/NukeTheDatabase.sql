@@ -20,6 +20,7 @@ EXEC sp_MSforeachtable
 
 DROP FUNCTION IF EXISTS [LoLDB].[MostChosenShard]
 DROP FUNCTION IF EXISTS [LoLDB].[MostPlayedChampion]
+DROP FUNCTION IF EXISTS [LoLDB].[TopTeamKiller]
 
 DROP PROCEDURE IF EXISTS [LoLDB].[InsertGameAndTeams]
 DROP PROCEDURE IF EXISTS [LoLDB].[GetNamedTeams]

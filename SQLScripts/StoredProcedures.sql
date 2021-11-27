@@ -200,20 +200,18 @@ CREATE PROCEDURE [LoLDB].[TopTeamPlayers]
     @StartDateTime DATETIMEOFFSET,
     @EndDateTime DATETIMEOFFSET
 AS 
+WITH CTE (TopTeamKillerID) AS (
+    SELECT LoLDB.TopTeamKiller (T.TeamID, @StartDateTime, @EndDateTime) AS TopTeamKillerID
+    FROM LoLDB.Team T
+)
 SELECT P.[Name] AS PlayerName,
        T.[Name] AS PlayerTeam,
-       PV.PlayerKillCount AS KillCount,
-       LoLDB.MostPlayedChampion(PV.PlayerID, @StartDateTime, @EndDateTime) AS MostPlayedChampion
-FROM (
-    SELECT TOP 1 P.PlayerID AS PlayerID,
-                 P.TeamID AS TeamID,
-                 COUNT(K.KillID) AS PlayerKillCount
-    FROM LoLDB.Player P
-        JOIN LoLDB.[Kill] K ON K.KillerID = P.PlayerID
-    GROUP BY P.PlayerID,
-             P.TeamID
-    ORDER BY COUNT(K.KillID) DESC
-) PV
-    JOIN LoLDB.Player P ON P.PlayerID = PV.PlayerID
-    JOIN LoLDB.Team T ON T.TeamID = PV.TeamID
+       COUNT(K.KillID) AS KillCount--,
+       --LoLDB.MostPlayedChampion(C.TopTeamKillerID, @StartDateTime, @EndDateTime) AS MostPlayedChampion
+FROM CTE C
+    JOIN LoLDB.Player P ON P.PlayerID = C.TopTeamKillerID
+    JOIN LoLDB.Team T ON T.TeamID = P.TeamID
+    JOIN LoLDB.[Kill] K ON K.KillerID = C.TopTeamKillerID
+GROUP BY P.[Name],
+         T.[Name]
 GO
