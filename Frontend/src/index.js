@@ -18,6 +18,7 @@ import reportWebVitals from './reportWebVitals';
 import Homepage from './routes/Homepage';
 import MostPlayedChampions from './routes/MostPlayedChampions';
 import TeamRankings from './routes/TeamRankings';
+import SelectivePlayerStatistics from './routes/SelectivePlayerStatistics';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -27,6 +28,7 @@ ReactDOM.render(
 					<Route exact path="/" element={<Homepage />} />
 					<Route path="mostPlayedChampions" element={<MostPlayedChampions />} />
 					<Route path="teamRankings" element={<TeamRankings />} />
+					<Route path="selectivePlayerStatistics" element={<SelectivePlayerStatistics />} />
 				</Route>
 				<Route path="/add" element={<Add />} >
 					<Route path="team" element={<Team />} />
