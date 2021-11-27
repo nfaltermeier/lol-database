@@ -180,11 +180,13 @@ SELECT LoLDB.MostPlayedChampion(@PlayerID, @StartDateTime, @EndDateTime) AS Most
        AVG(CAST(PGS.FifteenMinuteGold AS FLOAT)) AS Average15MinGold,
        MAX(PGS.EndGold) AS MaxEndGold,
        AVG(CAST(PGS.EndGold AS FLOAT)) AS AverageEndGold,
-       (SELECT TOP 1 PGS3.KeystoneRuneID 
-        FROM LoLDB.PlayerGameStats PGS3 
-        WHERE PGS3.PlayerID = @PlayerID
-        GROUP BY PGS3.KeystoneRuneID
-        ORDER BY COUNT(PGS3.KeystoneRuneID) DESC
+       (SELECT TOP 1 PGS2.KeystoneRuneID 
+        FROM LoLDB.PlayerGameStats PGS2
+            JOIN LoLDB.Game G2 ON G2.GameID = PGS2.GameID
+        WHERE PGS2.PlayerID = @PlayerID AND
+            G2.StartDateTime BETWEEN @StartDateTime AND @EndDateTime
+        GROUP BY PGS2.KeystoneRuneID
+        ORDER BY COUNT(PGS2.KeystoneRuneID) DESC
        ) AS MostChosenRuneKeystone,
        LoLDB.MostChosenShard(@PlayerID, 1) AS MostChosenShard1,
        LoLDB.MostChosenShard(@PlayerID, 2) AS MostChosenShard2,

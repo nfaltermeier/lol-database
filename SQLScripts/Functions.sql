@@ -1,5 +1,8 @@
 CREATE FUNCTION [LoLDB].[MostChosenShard] (
-    @PlayerID INT, @SlotIndex INT
+    @PlayerID INT, 
+    @SlotIndex INT,
+    @StartDateTime DATETIMEOFFSET,
+    @EndDateTime DATETIMEOFFSET
 )
 RETURNS INT
 AS
@@ -9,8 +12,10 @@ RETURN (
     FROM LoLDB.PlayerGameStats PGS 
         JOIN LoLDB.PlayerShard PS ON PS.PlayerGameStatsID = PGS.PlayerGameStatsID
         JOIN LoLDB.ShardRune SR ON SR.ShardRuneID = PS.ShardRuneID
+        JOIN LoLDB.Game G ON G.GameID = PGS.GameID
     WHERE PGS.PlayerID = @PlayerID AND
-          SR.Slot = @SlotIndex
+          SR.Slot = @SlotIndex AND
+          G.StartDateTime BETWEEN @StartDateTime AND @EndDateTime
     GROUP BY PS.ShardRuneID
     ORDER BY COUNT(PS.ShardRuneID) DESC
 )
