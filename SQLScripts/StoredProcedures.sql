@@ -170,15 +170,15 @@ CREATE PROCEDURE [LoLDB].[SelectivePlayerStatistics]
     @EndDateTime DATETIMEOFFSET
 AS
 SELECT LoLDB.MostPlayedChampion(@PlayerID, @StartDateTime, @EndDateTime) AS MostPlayedChampionID,
-       MAX(CAST(PGS.CreepScore AS FLOAT)) AS MaxCreepScore,
+       MAX(PGS.CreepScore) AS MaxCreepScore,
        AVG(CAST(PGS.CreepScore AS FLOAT)) AS AverageCreepScore,
-       MAX(CAST(PGS.VisionScore AS FLOAT)) AS MaxVisionScore,
+       MAX(PGS.VisionScore) AS MaxVisionScore,
        AVG(CAST(PGS.VisionScore AS FLOAT)) AS AverageVisionScore,
-       MAX(CAST(PGS.TenMinuteGold AS FLOAT)) AS Max10MinGold,
+       MAX(PGS.TenMinuteGold) AS Max10MinGold,
        AVG(CAST(PGS.TenMinuteGold AS FLOAT)) AS Average10MinGold,
-       MAX(CAST(PGS.FifteenMinuteGold AS FLOAT)) AS Max15MinGold,
+       MAX(PGS.FifteenMinuteGold) AS Max15MinGold,
        AVG(CAST(PGS.FifteenMinuteGold AS FLOAT)) AS Average15MinGold,
-       MAX(CAST(PGS.EndGold AS FLOAT)) AS MaxEndGold,
+       MAX(PGS.EndGold) AS MaxEndGold,
        AVG(CAST(PGS.EndGold AS FLOAT)) AS AverageEndGold,
        (SELECT TOP 1 PGS3.KeystoneRuneID 
         FROM LoLDB.PlayerGameStats PGS3 
