@@ -27,7 +27,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [LoLDB].[GetNamedTeams] AS
+CREATE PROCEDURE [LoLDB].[GetNamedGames] AS
 SELECT G.GameID, MIN(T.Name) + ' vs ' + MAX(T.Name) + ' on ' + CONVERT(NVARCHAR, G.StartDateTime, 0) AS [Name]
 FROM LoLDB.Game G
     JOIN LoLDB.TeamGame TG ON G.GameID = TG.GameID

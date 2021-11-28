@@ -29,7 +29,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IEnumerable<NamedGame> GetNamed()
         {
-            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetNamedTeams");
+            using var reader = DatabaseConnector.RunStoredProcedure("LoLDB.GetNamedGames");
             List<NamedGame> results = new();
             while (reader.Read())
                 results.Add(NamedGame.CreateNamedGame(reader));
