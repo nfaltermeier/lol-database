@@ -1,8 +1,31 @@
 .fieldTitle {
     font-weight: bold;
-    
 }
 
-label {
-    
+
+.statDataTable {
+    border-collapse: collapse;
+}
+
+.statDataTable th {
+    border-color: #bbb;
+    border-width: 2px;
+    border-style: solid;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+}
+
+.statDataTable td {
+    border-color: #bbb;
+    border-width: 2px;
+    border-style: solid;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.statDataTableCorner {
+    background-color: #444;
 }

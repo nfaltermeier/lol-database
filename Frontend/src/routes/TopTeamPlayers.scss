@@ -1,0 +1,20 @@
+$cellWidth: 130px;
+$cellHeight: 30px;
+$cellTextAlign: left;
+
+
+.topTeamPlayerDataTable th {
+    border-width: 0;
+    width: $cellWidth;
+    height: $cellHeight + 20px;
+    text-align: $cellTextAlign;
+    font-weight: bold;
+}
+
+.topTeamPlayerDataTable td {
+    border-width: 0;
+    width: $cellWidth;
+    height: $cellHeight;
+    text-align: $cellTextAlign;
+    font-weight: normal;
+}

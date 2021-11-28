@@ -6,7 +6,7 @@ export default function LabelImage(props) {
 
     return (
         <div className="labelImageContainer">
-            <img src={imgUrl || defaultImage} onError={(e)=>{e.target.onError = null; e.target.src = defaultImage; }} />
+            <img src={imgUrl || defaultImage} onError={(e)=>{e.target.onError = null; e.target.src = defaultImage; }} alt={message}/>
 
             <label>{message}</label>
         </div>

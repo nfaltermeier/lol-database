@@ -51,7 +51,7 @@ export default function SelectivePlayerStatistics() {
         // Retrieve readable data for statistic data
         let _playerName = "";
         let _championName = "No Champion Data";
-        let _championImgUrl = null;
+        // let _championImgUrl = null;
         let _mostChosenRuneKeystoneName = "No Keystone Rune Data";
         let _mostChosenRuneKeystoneImgUrl = null;
         let _shard01Name = "No Shard Data";
@@ -76,7 +76,7 @@ export default function SelectivePlayerStatistics() {
                 const c = state.data.champions.find(e => e.id.toString() === _sps.mostPlayedChampionID.toString());
                 if(c) {
                     _championName = c.name;
-                    _championImgUrl = "";
+                    // _championImgUrl = c.logoLink;
                 }
             }
 
@@ -124,6 +124,49 @@ export default function SelectivePlayerStatistics() {
         let shard01LI = LabelImage({message: _shard01Name, imgUrl: _shard01ImgUrl});
         let shard02LI = LabelImage({message: _shard02Name, imgUrl: _shard02ImgUrl});
         let shard03LI = LabelImage({message: _shard03Name, imgUrl: _shard03ImgUrl});
+        let statData;
+
+        // Stat data table construction
+        if(_sps){
+            statData = (
+                <div>
+                    <table className="statDataTable">
+                        <tbody>
+                            <tr>
+                                <th className="statDataTableCorner"></th>
+                                <th>Max</th>
+                                <th>Average</th>
+                            </tr>
+                            <tr>
+                                <th>Creep</th>
+                                <td>{_sps.maxCreepScore}</td>
+                                <td>{_sps.averageCreepScore}</td>
+                            </tr>
+                            <tr>
+                                <th>Vision</th>
+                                <td>{_sps.maxVisionScore}</td>
+                                <td>{_sps.averageVisionScore}</td>
+                            </tr>
+                            <tr>
+                                <th>10 Minute Gold</th>
+                                <td>{_sps.max10MinGold}</td>
+                                <td>{_sps.average10MinGold}</td>
+                            </tr>
+                            <tr>
+                                <th>15 Minute Gold</th>
+                                <td>{_sps.max15MinGold}</td>
+                                <td>{_sps.average15MinGold}</td>
+                            </tr>
+                            <tr>
+                                <th>End Gold</th>
+                                <td>{_sps.maxEndGold}</td>
+                                <td>{_sps.averageEndGold}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
 
         // Final component construction
         selectivePlayerStatistics = (
@@ -150,6 +193,11 @@ export default function SelectivePlayerStatistics() {
             {shard02LI}
             <label className="fieldTitle">Most Chosen Tertiary Shard</label>
             {shard03LI}
+
+            <br/>
+            <br/>
+
+            {statData}
             
         </div>);
 
@@ -158,6 +206,7 @@ export default function SelectivePlayerStatistics() {
 	}
 
 
+    // Return complete page
     return (
 		<main>
 			<DataLoader state={state} setState={setState} actions={getData}>

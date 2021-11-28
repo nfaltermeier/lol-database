@@ -11,6 +11,7 @@ function App() {
 				<NavLink to="/mostPlayedChampions">Most Played Champions</NavLink>
 				<NavLink to="/teamRankings">Team Rankings</NavLink>
 				<NavLink to="/selectivePlayerStatistics">Selective Player Statistics</NavLink>
+				<NavLink to="/topTeamPlayers">Top Team Players</NavLink>
 				<NavLink to="/add">Add Data</NavLink>
 			</nav>
 			<header className={cx('app-header')}>

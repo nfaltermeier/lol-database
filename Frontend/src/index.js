@@ -19,6 +19,7 @@ import Homepage from './routes/Homepage';
 import MostPlayedChampions from './routes/MostPlayedChampions';
 import TeamRankings from './routes/TeamRankings';
 import SelectivePlayerStatistics from './routes/SelectivePlayerStatistics';
+import TopTeamPlayers from './routes/TopTeamPlayers';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -29,6 +30,7 @@ ReactDOM.render(
 					<Route path="mostPlayedChampions" element={<MostPlayedChampions />} />
 					<Route path="teamRankings" element={<TeamRankings />} />
 					<Route path="selectivePlayerStatistics" element={<SelectivePlayerStatistics />} />
+					<Route path="topTeamPlayers" element={<TopTeamPlayers />} />
 				</Route>
 				<Route path="/add" element={<Add />} >
 					<Route path="team" element={<Team />} />
