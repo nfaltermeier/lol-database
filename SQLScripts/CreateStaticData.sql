@@ -50,7 +50,7 @@ FROM (
         ('Aftershock', 'Resolve', 'https://static.wikia.nocookie.net/leagueoflegends/images/c/ce/Aftershock_rune.png/revision/latest'),
         ('Guardian', 'Resolve', 'https://static.wikia.nocookie.net/leagueoflegends/images/4/4a/Guardian_rune.png/revision/latest'),
         ('Prototype: Omnistone', 'Inspiration', 'https://static.wikia.nocookie.net/leagueoflegends/images/9/91/Prototype-_Omnistone_rune.png/revision/latest'),
-        ('Glacial Augment', 'Inspiration', 'https://static.wikia.nocookie.net/leagueoflegends/images/0/03/Glacial_Augment_rune.png/revision/latest),
+        ('Glacial Augment', 'Inspiration', 'https://static.wikia.nocookie.net/leagueoflegends/images/0/03/Glacial_Augment_rune.png/revision/latest'),
         ('Unsealed Spellbook', 'Inspiration', 'https://static.wikia.nocookie.net/leagueoflegends/images/a/a9/Unsealed_Spellbook_rune.png/revision/latest')
 ) D([Name], RunePathName, LogoLink)
 JOIN LoLDB.RunePath RP ON D.RunePathName = RP.Name;
