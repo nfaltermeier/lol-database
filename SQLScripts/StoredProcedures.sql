@@ -208,8 +208,8 @@ WITH CTE (TopTeamKillerID) AS (
 )
 SELECT P.[Name] AS PlayerName,
        T.[Name] AS PlayerTeam,
-       COUNT(K.KillID) AS KillCount--,
-       --LoLDB.MostPlayedChampion(C.TopTeamKillerID, @StartDateTime, @EndDateTime) AS MostPlayedChampion
+       COUNT(K.KillID) AS KillCount,
+       LoLDB.MostPlayedChampion(MAX(C.TopTeamKillerID), @StartDateTime, @EndDateTime) AS MostPlayedChampion
 FROM CTE C
     JOIN LoLDB.Player P ON P.PlayerID = C.TopTeamKillerID
     JOIN LoLDB.Team T ON T.TeamID = P.TeamID
