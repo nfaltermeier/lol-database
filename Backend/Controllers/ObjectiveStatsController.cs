@@ -10,7 +10,7 @@ namespace Backend.Controllers {
     public class ObjectiveStatsController : ControllerBase {
         [HttpGet]
         public IEnumerable<ObjectiveStat> Get() {
-            using var reader = DatabaseConnector.RunQuery("SELECT ObjectiveID, GameID, TeamID, TimeOfCapture FROM LoLDB.ObjectiveStat");
+            using var reader = DatabaseConnector.RunQuery("SELECT ObjectiveStatID, ObjectiveID, GameID, TeamID, TimeOfCapture FROM LoLDB.ObjectiveStat");
             List<ObjectiveStat> results = new();
             while (reader.Read())
                 results.Add(ObjectiveStat.CreateObjectiveStat(reader));

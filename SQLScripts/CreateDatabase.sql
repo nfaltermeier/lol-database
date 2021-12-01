@@ -169,14 +169,9 @@ CREATE TABLE LoLDB.Objective (
 );
 
 CREATE TABLE LoLDB.ObjectiveStat (
+    ObjectiveStatID INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
     ObjectiveID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Objective(ObjectiveID),
     GameID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Game(GameID),
     TeamID INT NOT NULL FOREIGN KEY REFERENCES LoLDB.Team(TeamID),
-    TimeOfCapture TIME NOT NULL,
-
-    PRIMARY KEY (
-        ObjectiveID,
-        GameID,
-        TeamID
-    )
+    TimeOfCapture TIME NOT NULL
 );
