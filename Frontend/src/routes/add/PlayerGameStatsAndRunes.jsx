@@ -85,11 +85,22 @@ export default function PlayerGameStatsAndRunes() {
 
 		doCustomValidation(primaryRunePathID, val);
 	}, [setSecondaryRunePathID, doCustomValidation, primaryRunePathID]);
+	// store the current value on focus so we can properly count how many selects have a value
+	const secondaryRuneOnFocus = useCallback(e => {
+		const attr = document.createAttribute('data--prev-value');
+		attr.value = e.target.value;
+		e.target.attributes.setNamedItem(attr);
+	}, []);
 	const secondaryRuneOnChange = useCallback(e => {
-		if (e.target.value !== '')
+		const prev = e.target.attributes.getNamedItem('data--prev-value').value;
+		if (prev === '' && e.target.value !== '')
 			secondaryRuneCount.current += 1;
-		else
+		else if (e.target.value === '')
 			secondaryRuneCount.current -= 1;
+		// Update the value since it can be changed again without losing focus
+		const attr = document.createAttribute('data--prev-value');
+		attr.value = e.target.value;
+		e.target.attributes.setNamedItem(attr);
 
 		doCustomValidation(primaryRunePathID, secondaryRunePathID);
 	}, [secondaryRuneCount, doCustomValidation, primaryRunePathID, secondaryRunePathID]);
@@ -232,20 +243,40 @@ export default function PlayerGameStatsAndRunes() {
 					</div>
 					<div>
 						<label htmlFor="secondaryRunePathRuneSlot1ID">Slot 1</label>
-						<select name="secondaryRunePathRuneSlot1ID"
-							ref={rune1Elem} onChange={secondaryRuneOnChange} className={cx('show-error')} disabled={gameID === ''}>
+						<select
+							name="secondaryRunePathRuneSlot1ID"
+							ref={rune1Elem}
+							onChange={secondaryRuneOnChange}
+							onFocus={secondaryRuneOnFocus}
+							className={cx('show-error')}
+							disabled={gameID === ''}
+						>
 							{secondaryRunes.filter((e) => filterSlot(e, 1))}
 						</select>
 					</div>
 					<div>
 						<label htmlFor="secondaryRunePathRuneSlot2ID">Slot 2</label>
-						<select name="secondaryRunePathRuneSlot2ID" ref={rune2Elem} onChange={secondaryRuneOnChange} className={cx('show-error')} disabled={gameID === ''}>
+						<select
+							name="secondaryRunePathRuneSlot2ID"
+							ref={rune2Elem}
+							onChange={secondaryRuneOnChange}
+							onFocus={secondaryRuneOnFocus}
+							className={cx('show-error')}
+							disabled={gameID === ''}
+						>
 							{secondaryRunes.filter((e) => filterSlot(e, 2))}
 						</select>
 					</div>
 					<div>
 						<label htmlFor="secondaryRunePathRuneSlot3ID">Slot 3</label>
-						<select name="secondaryRunePathRuneSlot3ID" ref={rune3Elem} onChange={secondaryRuneOnChange} className={cx('show-error')} disabled={gameID === ''}>
+						<select
+							name="secondaryRunePathRuneSlot3ID"
+							ref={rune3Elem}
+							onChange={secondaryRuneOnChange}
+							onFocus={secondaryRuneOnFocus}
+							className={cx('show-error')}
+							disabled={gameID === ''}
+						>
 							{secondaryRunes.filter((e) => filterSlot(e, 3))}
 						</select>
 					</div>
